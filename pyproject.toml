@@ -1,0 +1,33 @@
+[project]
+name = "poppa"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyexcel>=0.7.1",
+    "pyexcel-ods>=0.6.0",
+    "rich>=13.9.4",
+    "tabulate>=0.9.0",
+    "typer>=0.15.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.14.1",
+    "ruff>=0.9.1",
+]
+
+[project.scripts]
+poppa = "poppa:app"
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+packages = "poppa"
+strict = true
