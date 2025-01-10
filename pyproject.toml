@@ -23,7 +23,7 @@ dev = [
 ]
 
 [project.scripts]
-poppa = "poppa:app"
+poppa = "poppa.__main__:app"
 
 [tool.ruff]
 line-length = 100
