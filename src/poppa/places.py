@@ -11,6 +11,7 @@ from . import errors
 class PlacesManager:
     @dataclass
     class Place:
+        id: str
         name: str
         pattern: str | None
         type: str
@@ -33,6 +34,7 @@ class PlacesManager:
         place_data = loads(file.read_text())
         for place_id, info in place_data.items():
             self.places[place_id] = self.Place(
+                id=place_id,
                 name=info["name"],
                 pattern=info.get("pattern", None),
                 type=info["type"],
