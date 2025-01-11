@@ -12,6 +12,7 @@ wheels/
 # Data
 *.ods
 .~lock.*.ods#
+out.csv
 
 # Tool caches
 .*_cache/
