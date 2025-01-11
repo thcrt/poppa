@@ -4,7 +4,7 @@ from typing import Any, Self
 
 from . import errors
 from .dates import Date
-from .places import Place
+from .places import PlacesManager
 
 
 def clean_cell(cell: Any) -> str | None:
@@ -27,7 +27,7 @@ def clean_cell(cell: Any) -> str | None:
 class Marriage:
     spouse: int | None = None
     date: Date | None = None
-    place: Place | None = None
+    place: PlacesManager.Place | None = None
     children: list[int] = field(default_factory=list)
 
 
@@ -37,9 +37,9 @@ class Person:
     first: str | None = None
     last: str | None = None
     birth_date: Date | None = None
-    birth_place: Place | None = None
+    birth_place: PlacesManager.Place | None = None
     death_date: Date | None = None
-    death_place: Place | None = None
+    death_place: PlacesManager.Place | None = None
     notes: str | None = None
 
     parents: tuple[int | None, int | None] = (None, None)
@@ -60,7 +60,7 @@ class Person:
             raise errors.MultipleReferencesError
 
     @classmethod
-    def from_cells(cls, cells: tuple[list[Any], list[Any]]) -> Self:
+    def from_cells(cls, cells: tuple[list[Any], list[Any]], places_manager: PlacesManager) -> Self:
         # Ensure cells are all non-empty strings or None.
         data = [[clean_cell(cell) for cell in row] for row in cells]
 
@@ -81,7 +81,7 @@ class Person:
         person.death_date = Date.from_entry(data[0][6]) if data[0][6] else None
 
         try:
-            person.birth_place = Place.from_entry(data[1][2])
+            person.birth_place = places_manager.from_entry(data[1][2])
         except errors.UnknownPlaceNameError:
             errors.show_error(
                 "Unknown place name",
@@ -90,7 +90,7 @@ class Person:
             )
 
         try:
-            person.death_place = Place.from_entry(data[1][6])
+            person.death_place = places_manager.from_entry(data[1][6])
         except errors.UnknownPlaceNameError:
             errors.show_error(
                 "Unknown place name",
@@ -116,7 +116,7 @@ class Person:
                 marriage_place_only = marriage_date_place.replace(date_match[0], "")
                 if marriage_place_only:
                     try:
-                        marriage_place = Place.from_entry(marriage_place_only)
+                        marriage_place = places_manager.from_entry(marriage_place_only)
                     except errors.UnknownPlaceNameError:
                         errors.show_error(
                             "Unknown place name",
@@ -128,7 +128,7 @@ class Person:
             else:
                 # We couldn't find a date, so we assume it's just the place
                 try:
-                    marriage_place = Place.from_entry(marriage_date_place)
+                    marriage_place = places_manager.from_entry(marriage_date_place)
                 except errors.UnknownPlaceNameError:
                     errors.show_error(
                         "Unknown place name",

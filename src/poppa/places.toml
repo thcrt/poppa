@@ -1,0 +1,389 @@
+[nz]
+name = "New Zealand"
+type = "Country"
+coords = "-42, 173"
+
+[waikato]
+name = "Waikato"
+type = "Region"
+coords = "-37.8, 175.4"
+enclosed_by = "nz"
+
+[hamilton]
+name = "Hamilton"
+pattern = '^[Hh]am(?:ilton)? ?(?:N[Zz])?$'
+type = "City"
+coords = "-37.783333, 175.283333"
+enclosed_by = "waikato"
+
+[te_rapa]
+name = "Te Rapa"
+pattern = '^Te Rapa(?: NZ)?$'
+type = "Neighborhood"
+coords = "-37.757822, 175.245881"
+enclosed_by = "hamilton"
+
+[waihi]
+name = "Waihi"
+pattern = '^Waihi ?NZ$'
+type = "Town"
+coords = "-37.383333, 175.833333"
+enclosed_by = "waikato"
+
+[cambridge]
+name = "Cambridge"
+pattern = '^[Cc]a?m?br?i?dge ?N[Zz]$'
+type = "Town"
+coords = "-37.883333, 175.466667"
+enclosed_by = "waikato"
+
+[tairua]
+name = "Tairua"
+pattern = '^Tairua$'
+type = "Town"
+coords = "-37.006389, 175.848889"
+enclosed_by = "waikato"
+
+[matamata]
+name = "Matamata"
+pattern = '^Matamata ?NZ$'
+type = "Town"
+coords = "-37.816667, 175.766667"
+enclosed_by = "waikato"
+
+[te_rore]
+name = "Te Rore"
+pattern = '^Te Rore ?NZ$'
+type = "Hamlet"
+coords = "-37.94128, 175.19303"
+enclosed_by = "waikato"
+
+[morrinsville]
+name = "Morrinsville"
+pattern = '^Morr?insvill?[e-]? ?N?Z?$'
+type = "Town"
+coords = "-37.65, 175.516667"
+enclosed_by = "waikato"
+
+["ngaruawahia"]
+name = "Ngāruawāhia"
+pattern = '^Ngaruawa?hia ?(?:NZ)?$'
+type = "Town"
+coords = "-37.666667, 175.15"
+enclosed_by = "waikato"
+
+[opito_bay]
+name = "Opito Bay"
+pattern = '^Opito Bay NZ$'
+type = ""
+coords = "-36.7169, 175.7971"
+enclosed_by = "waikato"
+
+[canterbury]
+name = "Canterbury"
+type = "Region"
+coords = "-43.6, 172"
+enclosed_by = "nz"
+
+[christchurch]
+name = "Christchurch"
+pattern = '^Ch(?:rist)?(?:ch|Ch)(?:urch)? ?NZ$'
+type = "City"
+coords = "-43.531111, 172.636111"
+enclosed_by = "canterbury"
+
+[templeton]
+name = "Templeton"
+pattern = '^Templet(?:on)? ?NZ$'
+type = "Town"
+coords = "-43.55, 172.466667"
+enclosed_by = "canterbury"
+
+[sefton]
+name = "Sefton"
+pattern = '^Sefton NZ$'
+type = "Town"
+coords = "-43.247, 172.667"
+enclosed_by = "canterbury"
+
+[waimate]
+name = "Waimate"
+pattern = '^Waimate ?[NM]Z$'
+type = "Town"
+coords = "-44.734, 171.0465"
+enclosed_by = "canterbury"
+
+[manawatu]
+name = "Manawatū-Whanganui"
+type = "Region"
+coords = "-39.6, 175.6"
+enclosed_by = "nz"
+
+[raetihi]
+name = "Raetihi"
+pattern = '^Raetihi ?NZ$'
+type = "Town"
+coords = "-39.425, 175.283333"
+enclosed_by = "manawatu"
+
+[taumarunui]
+name = "Taumarunui"
+pattern = '^Taumara(?:nui)? ?NZ$'
+type = "Town"
+coords = "-38.883333, 175.261667"
+enclosed_by = "manawatu"
+
+[owhango]
+name = "Ōwhango"
+pattern = '^Owa?ha?n?go ?NZ$'
+type = "Town"
+coords = "-39, 175.376667"
+enclosed_by = "manawatu"
+
+[northland]
+name = "Northland"
+type = "Region"
+coords = "-35.58, 173.97"
+enclosed_by = "nz"
+
+[whangarei]
+name = "Whangārei"
+pattern = '^Whangar?ei ?NZ$'
+type = "City"
+coords = "-35.725, 174.323611"
+enclosed_by = "northland"
+
+[moerewa]
+name = "Moerewa"
+pattern = '^mo[ew]rewa ?NZ$'
+type = "Town"
+coords = "-35.385833, 174.019722"
+enclosed_by = "northland"
+
+[taranaki]
+name = "Taranaki"
+type = "Region"
+coords = "-39.3, 174.133333"
+enclosed_by = "nz"
+
+[kaponga]
+name = "Kaponga"
+pattern = '^Kaponga ?NZ$'
+type = "Town"
+coords = "-39.416667, 174.133333"
+enclosed_by = "taranaki"
+
+[new_plymouth]
+name = "New Plymouth"
+pattern = '^N(?:ew)? Plymouth ?NZ$'
+type = "City"
+coords = "-39.057778, 174.074167"
+enclosed_by = "taranaki"
+
+[auckland_region]
+name = "Auckland"
+type = "Region"
+coords = "-36.9, 174.783333"
+enclosed_by = "nz"
+
+[auckland]
+name = "Auckland"
+pattern = '^Auck(?:land)? ?(?:N[Zz])?$'
+type = "City"
+coords = "-36.849167, 174.765278"
+enclosed_by = "auckland_region"
+
+[waitakere]
+name = "Waitākere"
+pattern = '^Waitakere NZ$'
+type = "Neighborhood"
+coords = "-36.85, 174.55"
+enclosed_by = "auckland"
+
+[henderson]
+name = "Henderson"
+pattern = '^Henderson ?N[Zz]$'
+type = "Neighborhood"
+coords = "-36.8811, 174.6312"
+enclosed_by = "auckland"
+
+[takapuna]
+name = "Takapuna"
+pattern = '^Takapuna ?NZ$'
+type = "Neighborhood"
+coords = "-36.787, 174.772"
+enclosed_by = "auckland"
+
+[middlemore]
+name = "Middlemore"
+pattern = '^Middlemore$'
+type = "Neighborhood"
+coords = "-36.962458, 174.83897"
+enclosed_by = "auckland"
+
+[papakura]
+name = "Papakura"
+pattern = '^Papakura ?NZ$'
+type = "Neighborhood"
+coords = "-37.0625, 174.941944"
+enclosed_by = "auckland"
+
+[orewa]
+name = "Orewa"
+pattern = '^Orewa NZ$'
+type = "Neighborhood"
+coords = "-36.585, 174.695"
+enclosed_by = "auckland"
+
+[auckland_central]
+name = "Auckland Central"
+type = "Neighborhood"
+coords = "-36.847, 174.765"
+enclosed_by = "auckland"
+
+[pitt_street]
+name = "Pitt Street"
+pattern = '^Pitt St Auck(?:land)?$'
+type = "Street"
+coords = "-36.8567, 174.7588"
+enclosed_by = "auckland_central"
+
+[bay_of_plenty]
+name = "Bay of Plenty"
+type = "Region"
+coords = "-38, 177"
+enclosed_by = "nz"
+
+[rotorua]
+name = "Rotorua"
+pattern = '^Rotorua(?: NZ)?$'
+type = "City"
+coords = "-38.137778, 176.251389"
+enclosed_by = "bay_of_plenty"
+
+[wellington_region]
+name = "Wellington"
+type = "Region"
+coords = "-41.283333, 174.766667"
+enclosed_by = "nz"
+
+[otaki]
+name = "Ōtaki"
+pattern = '^Otaki ?NZ$'
+type = "Town"
+coords = "-40.753, 175.14"
+enclosed_by = "wellington_region"
+
+[otago]
+name = "Otago"
+type = "Region"
+coords = "-45.880556, 170.496111"
+enclosed_by = "nz"
+
+[dunedin]
+name = "Dunedin"
+pattern = '^Dunedin NZ$'
+type = "City"
+coords = "-45.874167, 170.503611"
+enclosed_by = "otago"
+
+[australia]
+name = "Australia"
+pattern = '^Aust(?:ralia)?$'
+type = "Country"
+coords = "-25, 133"
+
+[nsw]
+name = "New South Wales"
+type = "State"
+coords = "-32, 147"
+enclosed_by = "australia"
+
+[sydney]
+name = "Sydney"
+pattern = '^Syd(?:ney)?.? ?A(?:U|ust(?:ralia)?)$'
+type = "City"
+coords = "-33.866667, 151.2"
+enclosed_by = "nsw"
+
+[uk]
+name = "the United Kingdom"
+type = "Country"
+coords = "55, -3"
+
+[england]
+name = "England"
+pattern = '^Eng(?:land)?$'
+type = "Country"
+coords = "53.13, -1.38"
+enclosed_by = "uk"
+
+[london]
+name = "London"
+pattern = '^London ?E(?:NG|ng)$'
+type = "City"
+coords = "51.507222, -0.1275"
+enclosed_by = "england"
+
+[scotland]
+name = "Scotland"
+type = "Country"
+coords = "57, -4"
+enclosed_by = "uk"
+
+[glasgow]
+name = "Glasgow"
+pattern = '^Glas[cg]ow ?SC$'
+type = "City"
+coords = "55.861111, -4.25"
+enclosed_by = "scotland"
+
+[northern_ire]
+name = "Northern Ireland"
+type = "Country"
+coords = "54.61, -6.62"
+enclosed_by = "uk"
+
+[londonderry_county]
+name = "County Londonderry"
+pattern = '^C Derry ?IRE$'
+type = "County"
+coords = "55.132, -6.668"
+enclosed_by = "northern_ire"
+
+[indonesia]
+name = "Indonesia"
+pattern = '^Indonesia$'
+type = "Country"
+coords = "-5, 120"
+
+[cook_islands]
+name = "Cook Islands"
+pattern = '^Cook Is(?:lands)?$'
+type = "Country"
+coords = "-21.233333, -159.766667"
+
+[aitutaki]
+name = "Aitutaki"
+pattern = '^Ai?tutaki ?CI$'
+type = "Island"
+coords = "-18.85, -159.79"
+enclosed_by = "cook_islands"
+
+[south_africa]
+name = "South Africa"
+type = "Country"
+coords = "-30, 25"
+
+[gauteng]
+name = "Gauteng"
+type = "Province"
+coords = "-26, 28"
+enclosed_by = "south_africa"
+
+[johannesburg]
+name = "Johannesburg"
+pattern = '^Johann?[ea]?sb?u?r?g? ?SA$'
+type = "City"
+coords = "-26.204444, 28.045556"
+enclosed_by = "gauteng"

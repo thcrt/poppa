@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from .dates import Date
 from .errors import show_error
 from .people import Person
-from .places import Place
+from .places import PlacesManager
 
 
 @dataclass
@@ -11,7 +11,7 @@ class Family:
     partner1: Person | None = None
     partner2: Person | None = None
     married_date: Date | None = None
-    married_place: Place | None = None
+    married_place: PlacesManager.Place | None = None
     children: list[Person] = field(default_factory=list)
 
 

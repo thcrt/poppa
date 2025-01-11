@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import rich
 import typer
 
@@ -7,10 +9,10 @@ stderr = rich.console.Console(stderr=True)
 
 
 @app.command()
-def parse(file: str) -> None:
+def parse(file: Path, places_file: Path | None = None) -> None:
     from poppa import load_data
 
-    people, families = load_data(file)
+    people, families = load_data(file, places_file=places_file)
 
     people_table = rich.table.Table(
         "ID",
