@@ -15,7 +15,7 @@ class Family:
     children: list[Person] = field(default_factory=list)
 
 
-def build_families(people: dict[int, Person], new_id_start: int) -> list[Family]:
+def build_families(people: dict[int, Person]) -> list[Family]:
     families: list[Family] = []
 
     for person in people.values():

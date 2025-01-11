@@ -1,5 +1,6 @@
 import re
 from dataclasses import dataclass, field
+from itertools import batched
 from typing import Any, Self
 
 from . import errors
@@ -145,3 +146,19 @@ class Person:
             )
 
         return person
+
+
+def build_people(cell_data: list[list[Any]], places_manager: PlacesManager) -> dict[int, Person]:
+    people = {}
+    new_id_start = 99900
+
+    for entry in batched(cell_data, 2):
+        if len(entry) != 2:
+            continue
+        person = Person.from_cells(entry, places_manager=places_manager)
+        if not person.id_number:
+            person.id_number = new_id_start
+            new_id_start += 1
+        people[person.id_number] = person
+
+    return people

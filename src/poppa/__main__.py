@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import pyexcel  # type: ignore
 import rich
 import typer
 
@@ -10,9 +11,15 @@ stderr = rich.console.Console(stderr=True)
 
 @app.command()
 def parse(file: Path, places_file: Path | None = None) -> None:
-    from poppa import load_data
+    from poppa.families import build_families
+    from poppa.people import build_people
+    from poppa.places import PlacesManager
 
-    people, families = load_data(file, places_file=places_file)
+    data = pyexcel.get_array(file_name=str(file))
+    places_manager = PlacesManager(places_file)
+
+    people = build_people(data, places_manager)
+    families = build_families(people)
 
     people_table = rich.table.Table(
         "ID",
