@@ -28,6 +28,22 @@ poppa = "poppa.__main__:app"
 [tool.ruff]
 line-length = 100
 
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "N", # pep8-naming
+    "F", # flake8
+    "B", # flake8-bugbear
+    "A", # flake8-builtins
+    "SIM", # flake8-simplify
+    "PTH", # flake8-use-pathlib
+    "ERA", # eradicate
+    "FURB", # refurb
+    "UP", # pyupgrade
+    "I", # isort
+]
+
 [tool.mypy]
 packages = "poppa"
 strict = true

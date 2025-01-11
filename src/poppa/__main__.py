@@ -1,6 +1,5 @@
-import typer
 import rich
-
+import typer
 
 app = typer.Typer(pretty_exceptions_enable=False)
 stdout = rich.console.Console()

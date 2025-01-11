@@ -1,9 +1,8 @@
 import re
-from typing import Optional, Self
 from dataclasses import dataclass
+from typing import Self
 
 from . import errors
-
 
 PATTERNS = {
     "Hamilton, Waikato, New Zealand": r"^[Hh]am(?:ilton)? ?(?:N[Zz])?$",
@@ -57,7 +56,7 @@ class Place:
     uncertain: bool = False
 
     @classmethod
-    def from_entry(cls, entry: str | None) -> Optional[Self]:
+    def from_entry(cls, entry: str | None) -> Self | None:
         if entry is None:
             return None
         place = None
@@ -66,7 +65,7 @@ class Place:
                 place = cls(name, uncertain=("?" in entry))
                 break
         else:
-            # If `break` on the for loop wasn't called, so we didn't match a pattern, raise an error.
+            # If `break` wasn't called, so we didn't match a pattern, raise an error.
             raise errors.UnknownPlaceNameError
         return place
 

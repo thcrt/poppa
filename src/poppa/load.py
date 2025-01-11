@@ -2,8 +2,8 @@ from itertools import batched
 
 import pyexcel  # type: ignore
 
-from .people import Person
 from .families import Family, build_families
+from .people import Person
 
 
 def load_data(filename: str) -> tuple[dict[int, Person], list[Family]]:

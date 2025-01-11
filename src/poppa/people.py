@@ -1,14 +1,13 @@
 import re
-
-from typing import Optional, Any, Self
 from dataclasses import dataclass, field
+from typing import Any, Self
 
+from . import errors
 from .dates import Date
 from .places import Place
-from . import errors
 
 
-def clean_cell(cell: Any) -> Optional[str]:
+def clean_cell(cell: Any) -> str | None:
     cell = str(cell).strip()
     return (
         None
@@ -26,32 +25,32 @@ def clean_cell(cell: Any) -> Optional[str]:
 
 @dataclass
 class Marriage:
-    spouse: Optional[int] = None
-    date: Optional[Date] = None
-    place: Optional[Place] = None
+    spouse: int | None = None
+    date: Date | None = None
+    place: Place | None = None
     children: list[int] = field(default_factory=list)
 
 
 @dataclass
 class Person:
-    id_number: Optional[int] = None
-    first: Optional[str] = None
-    last: Optional[str] = None
-    birth_date: Optional[Date] = None
-    birth_place: Optional[Place] = None
-    death_date: Optional[Date] = None
-    death_place: Optional[Place] = None
-    notes: Optional[str] = None
+    id_number: int | None = None
+    first: str | None = None
+    last: str | None = None
+    birth_date: Date | None = None
+    birth_place: Place | None = None
+    death_date: Date | None = None
+    death_place: Place | None = None
+    notes: str | None = None
 
-    parents: tuple[Optional[int], Optional[int]] = (None, None)
-    marriage: Optional[Marriage] = None
+    parents: tuple[int | None, int | None] = (None, None)
+    marriage: Marriage | None = None
 
     @staticmethod
     def find_id_numbers(cell: str) -> list[int]:
         return [int(match) for match in re.findall(r"\d+", cell)]
 
     @staticmethod
-    def find_id_number(cell: str) -> Optional[int]:
+    def find_id_number(cell: str) -> int | None:
         matches = Person.find_id_numbers(cell)
         if len(matches) == 0:
             return None
@@ -86,7 +85,8 @@ class Person:
         except errors.UnknownPlaceNameError:
             errors.show_error(
                 "Unknown place name",
-                f"#{person.id_number} lists `{data[1][2]}` as place of birth, which was not recognised!",
+                f"#{person.id_number} lists `{data[1][2]}` as place of birth, which couldn't be "
+                f"recognised as a place!",
             )
 
         try:
@@ -94,10 +94,9 @@ class Person:
         except errors.UnknownPlaceNameError:
             errors.show_error(
                 "Unknown place name",
-                f"#{person.id_number} lists `{data[1][6]}` as place of death, which was not recognised!",
+                f"#{person.id_number} lists `{data[1][6]}` as place of death, which couldn't be "
+                f"recognised as a place!!",
             )
-
-        # Try to build up a marriage, which we'll parse later and remove from the Person object
 
         spouse = cls.find_id_number(str(data[0][4])) if data[0][4] else None
         children = cls.find_id_numbers(
@@ -107,7 +106,7 @@ class Person:
         marriage_date = None
         marriage_place = None
 
-        # Marriage date and place are annoyingly stored in the same cell, so we have to separate them
+        # Marriage date and place are stored in the same cell, so we have to separate them
         marriage_date_place = data[1][4]
         if marriage_date_place:
             date_match = Date.search(marriage_date_place)
@@ -133,8 +132,8 @@ class Person:
                 except errors.UnknownPlaceNameError:
                     errors.show_error(
                         "Unknown place name",
-                        f"#{person.id_number} lists `{marriage_date_place}` as their place and/or date of marriage,"
-                        f"but neither a date nor a place name could be found!",
+                        f"#{person.id_number} lists `{marriage_date_place}` as their place and/or "
+                        f"date of marriage, but neither a date nor a place name could be found!",
                     )
 
         if spouse or children or marriage_date or marriage_place:

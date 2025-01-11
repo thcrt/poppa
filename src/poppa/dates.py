@@ -1,29 +1,31 @@
+import re
 from dataclasses import dataclass
-from typing import Optional, Self
+from typing import Self
 
 from .errors import InvalidDateError
 
-import re
-
 ZEROS_PATTERN = r"0*"
 DATE_PATTERNS = (
-    r"(?P<d>[0-3]?[0-9])(?P<sep>[-./])(?P<m>[0-1]?[0-9])(?P=sep)(?:(?P<sy>\d{4})-(?P<ey>\d{4})|(?P<y>\d{4}))",  # day-month-year/range
-    r"(?:(?P<sy>\d{4})-(?P<ey>\d{4})|(?P<y>\d{4}))(?P<sep>[-./])(?P<m>[0-1]?[0-9])(?P=sep)(?P<d>[0-3]?[0-9])",  # year/range-month-day
-    r"(?P<d>)(?P<m>)(?P<sy>\d{4})-(?P<ey>\d{4})|(?P<y>\d{4})",  # year/range
+    # day-month-year/range
+    r"(?P<d>[0-3]?[0-9])(?P<sep>[-./])(?P<m>[0-1]?[0-9])(?P=sep)(?:(?P<sy>\d{4})-(?P<ey>\d{4})|(?P<y>\d{4}))",  # noqa: E501
+    # year/range-month-day
+    r"(?:(?P<sy>\d{4})-(?P<ey>\d{4})|(?P<y>\d{4}))(?P<sep>[-./])(?P<m>[0-1]?[0-9])(?P=sep)(?P<d>[0-3]?[0-9])",  # noqa: E501
+    # year/range
+    r"(?P<d>)(?P<m>)(?P<sy>\d{4})-(?P<ey>\d{4})|(?P<y>\d{4})",
 )
 
 
 @dataclass
 class Date:
-    year: Optional[int] = None
-    start_year: Optional[int] = None
-    end_year: Optional[int] = None
-    month: Optional[int] = None
-    day: Optional[int] = None
+    year: int | None = None
+    start_year: int | None = None
+    end_year: int | None = None
+    month: int | None = None
+    day: int | None = None
     uncertain: bool = False
 
     @staticmethod
-    def search(entry: str) -> Optional[re.Match[str]]:
+    def search(entry: str) -> re.Match[str] | None:
         for pattern in DATE_PATTERNS:
             match = re.search(pattern, entry.strip(" .?"))
             if match:
@@ -31,7 +33,7 @@ class Date:
         return None
 
     @classmethod
-    def from_entry(cls, entry: str) -> Optional[Self]:
+    def from_entry(cls, entry: str) -> Self | None:
         match = cls.search(entry)
         if not match:
             return None

@@ -1,18 +1,17 @@
 from dataclasses import dataclass, field
-from typing import Optional
 
-from .people import Person
 from .dates import Date
-from .places import Place
 from .errors import show_error
+from .people import Person
+from .places import Place
 
 
 @dataclass
 class Family:
-    partner1: Optional[Person] = None
-    partner2: Optional[Person] = None
-    married_date: Optional[Date] = None
-    married_place: Optional[Place] = None
+    partner1: Person | None = None
+    partner2: Person | None = None
+    married_date: Date | None = None
+    married_place: Place | None = None
     children: list[Person] = field(default_factory=list)
 
 
@@ -115,9 +114,9 @@ def build_families(people: dict[int, Person], new_id_start: int) -> list[Family]
                     show_error(
                         "Child has unknown parent",
                         f"#{child.id_number} lists #{person.id_number}, who is unmarried as their "
-                        f"parent, but also lists a second parent. If #{person.id_number} is married, "
-                        f"make sure that's reflected correctly. Otherwise, check the parents entry "
-                        f"for #{child.id_number}.",
+                        f"parent, but also lists a second parent. If #{person.id_number} is "
+                        f"married, make sure that's reflected correctly. Otherwise, check the "
+                        f"parents entry for #{child.id_number}.",
                     )
 
                 if child.parents == (person.id_number, spouse.id_number if spouse else None):
