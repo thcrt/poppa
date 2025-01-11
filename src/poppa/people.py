@@ -67,7 +67,14 @@ class Person:
 
         person = cls()
 
-        person.id_number = int(data[0][0].strip("# .")) if data[0][0] else None
+        try:
+            person.id_number = int(data[0][0].strip("# .")) if data[0][0] else None
+        except ValueError:
+            errors.show_error(
+                "Invalid ID number format",
+                f"The ID number provided as `{data[0][0]}` can't be parsed."
+            )
+
         person.first = data[1][1].title() if data[1][1] else None
         person.last = data[0][1].title() if data[0][1] else None
 
@@ -99,7 +106,15 @@ class Person:
                 f"recognised as a place!!",
             )
 
-        spouse = cls.find_id_number(str(data[0][4])) if data[0][4] else None
+        try:
+            spouse = cls.find_id_number(str(data[0][4])) if data[0][4] else None
+        except errors.MultipleReferencesError:
+            errors.show_error(
+                "Multiple spouses listed",
+                f"#{person.id_number} has the spouse entry `{data[0][4]}`, which was parsed as "
+                f"containing the IDs {cls.find_id_numbers(data[0][4])}. They should only have 1 "
+                f"spouse!"
+            )
         children = cls.find_id_numbers(
             str(data[0][5]) if data[0][5] else "" + str(data[1][5]) if data[1][5] else ""
         )
