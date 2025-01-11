@@ -19,9 +19,11 @@ class DisplayFormat(StrEnum):
 
 @app.command()
 def parse(
-    file: Path = typer.Argument(help="The spreadsheet to parse."), 
-    out: Path = typer.Argument(help="Where to output the CSV file for Gramps."), 
-    places_file: Path | None = typer.Option(None, help="A TOML file detailing place names for parsing.")
+    file: Path = typer.Argument(help="The spreadsheet to parse."),
+    out: Path = typer.Argument(help="Where to output the CSV file for Gramps."),
+    places_file: Path | None = typer.Option(
+        None, help="A TOML file detailing place names for parsing."
+    ),
 ) -> None:
     """Parse an ODS spreadsheet into a Gramps-formatted CSV file."""
     from poppa.export import export
