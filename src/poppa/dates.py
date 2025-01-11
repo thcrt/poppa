@@ -1,3 +1,4 @@
+import calendar
 import re
 from dataclasses import dataclass
 from typing import Self
@@ -58,19 +59,23 @@ class Date:
         return date
 
     def __str__(self) -> str:
+        day = str(self.day) if self.day and self.month else ""
+        month = calendar.month_name[self.month] if self.month else ""
+
         if self.year:
-            year = str(self.year)
-        elif self.start_year or self.end_year:
-            start_year = self.start_year if self.start_year else "????"
-            end_year = self.end_year if self.end_year else "????"
-            year = f"{start_year}-{end_year}"
+            # We filter with `None` to only include truth-y values, avoiding extra whitespace where
+            # we would have " ".join()-ed empty strings.
+            return " ".join(filter(None, (day, month, str(self.year))))
+        elif self.start_year and self.end_year:
+            return " ".join(
+                filter(
+                    None, (day, month, str(self.start_year), "-", day, month, str(self.end_year))
+                )
+            )
+        elif self.day and self.month:
+            return f"{day} {month}"
         else:
-            year = "????"
-
-        month = self.month if self.month else "??"
-        day = self.day if self.day else "??"
-
-        return f"{day}/{month}/{year}" + (" (?)" if self.uncertain else "")
+            return ""
 
     def __rich__(self) -> str:
         return str(self)
