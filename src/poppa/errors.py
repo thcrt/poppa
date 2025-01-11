@@ -8,9 +8,15 @@ class PoppaBaseError(Exception):
 
 
 class UnknownPlaceNameError(PoppaBaseError):
-    def __init__(self, place_name: str):
-        super().__init__(place_name)
-        self.place_name = place_name
+    pass
+
+
+class InvalidDateError(PoppaBaseError):
+    pass
+
+
+class MultipleReferencesError(PoppaBaseError):
+    pass
 
 
 def show_error(title: str, msg: str) -> None:

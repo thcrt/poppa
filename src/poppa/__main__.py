@@ -25,13 +25,13 @@ def parse(file: str) -> None:
     )
     for person in people.values():
         people_table.add_row(
-            person["id"],
-            person["first"],
-            person["last"],
-            person["birth_date"],
-            person["birth_place"],
-            person["death_date"],
-            person["death_place"],
+            str(person.id_number),
+            person.first,
+            person.last,
+            person.birth_date,
+            person.birth_place,
+            person.death_date,
+            person.death_place,
         )
     stdout.print(people_table)
 
@@ -45,11 +45,11 @@ def parse(file: str) -> None:
     )
     for family in families:
         families_table.add_row(
-            family["partner1"],
-            family["partner2"],
-            family["married_date"],
-            family["married_place"],
-            ", ".join(family["children"]),
+            str(family.partner1.id_number) if family.partner1 else "",
+            str(family.partner2.id_number) if family.partner2 else "",
+            family.married_date,
+            family.married_place,
+            ", ".join(str(child.id_number) for child in family.children),
         )
     stdout.print(families_table)
 
