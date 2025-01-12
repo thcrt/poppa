@@ -121,7 +121,7 @@ class Person:
                 f"spouse!",
             )
         children = cls.find_id_numbers(
-            str(data[0][5]) if data[0][5] else "" + str(data[1][5]) if data[1][5] else ""
+            (str(data[0][5]) if data[0][5] else "") + (str(data[1][5]) if data[1][5] else "")
         )
 
         marriage_date = None
