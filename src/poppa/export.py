@@ -52,7 +52,7 @@ def write_places(places_manager: PlacesManager, buf: io.TextIOBase) -> int:
                 "type": place.type,
                 "latitude": lat,
                 "longitude": long,
-                "enclosed_by": f"place_{place.enclosed_by}",
+                "enclosed_by": f"place_{place.enclosed_by}" if place.enclosed_by else None,
             }
         )
         written += 1
@@ -67,8 +67,8 @@ def write_people(people: dict[int, Person], buf: io.TextIOBase) -> int:
         writer.writerow(
             {
                 "person": f"person_{person_id}",
-                "first_name": person.first if person.first else "(?)",
-                "last_name": person.last if person.last else "(?)",
+                "first_name": person.first,
+                "last_name": person.last,
                 "birthdate": person.birth_date,
                 "birthplaceid": f"place_{person.birth_place.id}" if person.birth_place else None,
                 "deathdate": person.death_date,
