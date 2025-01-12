@@ -19,10 +19,14 @@ def build_families(people: dict[int, Person]) -> list[Family]:
     families: list[Family] = []
 
     for person in people.values():
+        already_processed = False
         for family in families:
-            if person in (family.partner1, family.partner2):
+            if (family.partner1 and family.partner1.id_number == person.id_number) \
+            or (family.partner2 and family.partner2.id_number == person.id_number):
                 # Person was already processed as the spouse of a previous person
-                continue
+                already_processed = True
+        if already_processed:
+            continue
 
         if person.marriage:
             spouse = None
