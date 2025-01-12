@@ -6,6 +6,7 @@ from typing import Any, Self
 from . import errors
 from .dates import Date
 from .places import PlacesManager
+from .__main__ import error_manager
 
 
 def clean_cell(cell: Any) -> str | None:
@@ -70,7 +71,7 @@ class Person:
         try:
             person.id_number = int(data[0][0].strip("# .")) if data[0][0] else None
         except ValueError:
-            errors.show_error(
+            error_manager.show_error(
                 "Invalid ID number format",
                 f"The ID number provided as `{data[0][0]}` can't be parsed."
             )
@@ -80,10 +81,10 @@ class Person:
 
         person.notes = "  ".join(cell for cell in (data[0][8:] + data[1][8:]) if cell)
 
-        person.parents = (
+        person.parents = [
             cls.find_id_number(str(data[0][3])) if data[0][3] else None,
             cls.find_id_number(str(data[1][3])) if data[1][3] else None,
-        )
+        ]
 
         person.birth_date = Date.from_entry(data[0][2]) if data[0][2] else None
         person.death_date = Date.from_entry(data[0][6]) if data[0][6] else None
@@ -91,7 +92,7 @@ class Person:
         try:
             person.birth_place = places_manager.from_entry(data[1][2])
         except errors.UnknownPlaceNameError:
-            errors.show_error(
+            error_manager.show_error(
                 "Unknown place name",
                 f"#{person.id_number} lists `{data[1][2]}` as place of birth, which couldn't be "
                 f"recognised as a place!",
@@ -100,7 +101,7 @@ class Person:
         try:
             person.death_place = places_manager.from_entry(data[1][6])
         except errors.UnknownPlaceNameError:
-            errors.show_error(
+            error_manager.show_error(
                 "Unknown place name",
                 f"#{person.id_number} lists `{data[1][6]}` as place of death, which couldn't be "
                 f"recognised as a place!!",
@@ -109,7 +110,7 @@ class Person:
         try:
             spouse = cls.find_id_number(str(data[0][4])) if data[0][4] else None
         except errors.MultipleReferencesError:
-            errors.show_error(
+            error_manager.show_error(
                 "Multiple spouses listed",
                 f"#{person.id_number} has the spouse entry `{data[0][4]}`, which was parsed as "
                 f"containing the IDs {cls.find_id_numbers(data[0][4])}. They should only have 1 "
@@ -134,7 +135,7 @@ class Person:
                     try:
                         marriage_place = places_manager.from_entry(marriage_place_only)
                     except errors.UnknownPlaceNameError:
-                        errors.show_error(
+                        error_manager.show_error(
                             "Unknown place name",
                             f"#{person.id_number} lists `{marriage_date_place}` as their place "
                             f"and/or date of marriage. \n`{date_match[0]}` was extracted and "
@@ -146,7 +147,7 @@ class Person:
                 try:
                     marriage_place = places_manager.from_entry(marriage_date_place)
                 except errors.UnknownPlaceNameError:
-                    errors.show_error(
+                    error_manager.show_error(
                         "Unknown place name",
                         f"#{person.id_number} lists `{marriage_date_place}` as their place and/or "
                         f"date of marriage, but neither a date nor a place name could be found!",

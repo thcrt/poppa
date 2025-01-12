@@ -1,9 +1,9 @@
 from dataclasses import dataclass, field
 
 from .dates import Date
-from .errors import show_error
-from .people import Person
+from .people import Person, Marriage
 from .places import PlacesManager
+from .__main__ import error_manager
 
 
 @dataclass
@@ -29,7 +29,7 @@ def build_families(people: dict[int, Person]) -> list[Family]:
 
             if person.marriage.spouse:
                 if person.marriage.spouse not in people:
-                    show_error(
+                    error_manager.show_error(
                         "Spouse ID nonexistent",
                         f"#{person.id_number} lists #{person.marriage.spouse} as their spouse, but "
                         f"that ID doesn't exist! \nMake sure the ID number is correct, and create "
@@ -44,42 +44,92 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                 # just edit the source spreadsheet by hand to only reference one marriage, and add
                 # a note to the affected people reminding us to manually add the second marriage to
                 # Gramps after importing.
-                if spouse.marriage is None:
-                    show_error(
+                if spouse.marriage is None or spouse.marriage.spouse is None:
+                    match error_manager.show_warning(
                         "Marriage not reciprocated",
                         f"#{person.id_number} lists #{spouse.id_number} as their spouse, but "
                         f"#{spouse.id_number} doesn't list them as their spouse in return, instead "
                         f"listing nobody!",
-                    )
-                    # show_error() exits anyway, but we explicitly exit here to satisfy the type
-                    # checker that `spouse` can no longer be `None`.
-                    raise SystemExit
+                        {
+                            "a": f"Add #{person.id_number} as #{spouse.id_number}'s spouse",
+                        },
+                        f"marriage_recip.{person.id_number}.{spouse.id_number}",
+                    ):
+                        case "a":
+                            if spouse.marriage is None:
+                                spouse.marriage = Marriage()
+                            spouse.marriage.spouse = person.id_number
                 if spouse.marriage.spouse != person.id_number:
-                    show_error(
+                    error_manager.show_error(
                         "Marriage not reciprocated",
                         f"#{person.id_number} lists #{spouse.id_number} as their spouse, but "
                         f"#{spouse.id_number} doesn't list them as their spouse in return, instead "
                         f"listing `{spouse.marriage.spouse}`!",
                     )
                 if spouse.marriage.date != person.marriage.date:
-                    show_error(
+                    match error_manager.show_warning(
                         "Marriage dates don't match",
                         f"Marriage dates for #{person.id_number} (`{person.marriage.date}`) and "
                         f"#{spouse.id_number} (`{spouse.marriage.date}`) don't match!",
-                    )
+                        {
+                            "a": f"Use `{person.marriage.date}` for both spouses",
+                            "d": f"Use `{spouse.marriage.date}` for both spouses",
+                        },
+                        f"marriage_date.{person.id_number}.{person.marriage.date}.{spouse.id_number}.{spouse.marriage.date}",
+                    ):
+                        case "a":
+                            spouse.marriage.date = person.marriage.date
+                        case "d":
+                            person.marriage.date = spouse.marriage.date
                 if spouse.marriage.place != person.marriage.place:
-                    show_error(
+                   match error_manager.show_warning(
                         "Marriage places don't match",
                         f"Marriage places for #{person.id_number} (`{person.marriage.place}`) and "
                         f"#{spouse.id_number} (`{spouse.marriage.place}`) don't match!",
-                    )
+                        {
+                            "a": f"Use `{person.marriage.place}` for both spouses",
+                            "d": f"Use `{spouse.marriage.place}` for both spouses",
+                        },
+                        f"marriage_place.{person.id_number}.{person.marriage.place}.{spouse.id_number}.{spouse.marriage.place}",
+                    ):
+                        case "a":
+                            spouse.marriage.place = person.marriage.place
+                        case "d":
+                            person.marriage.place = spouse.marriage.place
                 if spouse.marriage.children != person.marriage.children:
-                    show_error(
-                        "Children don't match",
-                        f"Children for #{person.id_number} and #{spouse.id_number} don't match! \n"
-                        f"#{person.id_number}'s children are: {person.marriage.children} \n"
-                        f"#{spouse.id_number}'s children are: {spouse.marriage.children}",
-                    )
+                    if person.marriage.children == []:
+                        match error_manager.show_warning(
+                            "One partner missing children",
+                            f"#{spouse.id_number} has the children {spouse.marriage.children}, but "
+                            f"their spouse #{person.id_number} has no children listed!",
+                            {
+                                "a": f"Add #{spouse.id_number}'s children to #{person.id_number}",
+                            },
+                            f"missing_children_p.{person.id_number}.{spouse.id_number}.{'.'.join(spouse.marriage.children)}"
+                        ):
+                            case "a":
+                                person.marriage.children = spouse.marriage.children
+                    elif spouse.marriage.children == []:
+                        match error_manager.show_warning(
+                            "One partner missing children",
+                            f"#{person.id_number} has the children {person.marriage.children}, but "
+                            f"their spouse #{spouse.id_number} has no children listed!",
+                            {
+                                "a": f"Add #{person.id_number}'s children to #{spouse.id_number}",
+                            },
+                            f"missing_children_s.{person.id_number}.{spouse.id_number}.{'.'.join(str(child_id) for child_id in person.marriage.children)}"
+                        ):
+                            case "a":
+                                spouse.marriage.children = person.marriage.children
+                            case "q":
+                                raise SystemExit
+                    else:
+                        error_manager.show_error(
+                            "Children don't match",
+                            f"Children for #{person.id_number} and #{spouse.id_number} don't match! \n"
+                            f"#{person.id_number}'s children are: {person.marriage.children} \n"
+                            f"#{spouse.id_number}'s children are: {spouse.marriage.children}",
+                        )
 
             family = Family(married_date=person.marriage.date, married_place=person.marriage.place)
 
@@ -87,11 +137,11 @@ def build_families(people: dict[int, Person]) -> list[Family]:
             # is typically the father. This means that, if any children are listed, we can make a
             # pretty good guess about who is whom. Otherwise, we've just got a 50/50 shot, but it
             # doesn't matter too much if we're wrong.
-            person_is_partner1 = False
+            person_is_partner1 = True
 
             for child_id_number in person.marriage.children:
                 if child_id_number not in people:
-                    show_error(
+                    error_manager.show_error(
                         "Child ID nonexistent",
                         f"#{person.id_number} lists #{child_id_number} as a child, but that ID "
                         f"doesn't exist! \nMake sure the ID number is correct, and create an entry "
@@ -99,28 +149,58 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                     )
                 child = people[child_id_number]
 
-                parents = (person.id_number, spouse.id_number) if spouse else (person.id_number,)
-                for parent in parents:
-                    if parent not in child.parents:
-                        show_error(
-                            "Child missing parent",
-                            f"#{child.id_number} is listed as the child of #{parent}, but doesn't "
-                            f"list them as their parent! If #{child.id_number} is really the child "
-                            f"of #{parent}, add `{parent}` to their parents entry. Otherwise, "
-                            f"remove #{child.id_number}'s ID from #{parent}'s children entry.",
-                        )
+                if spouse is None:
+                    spouse = Person()
 
-                if spouse is None and None not in child.parents:
-                    show_error(
-                        "Child has unknown parent",
-                        f"#{child.id_number} lists #{person.id_number}, who is unmarried as their "
-                        f"parent, but also lists a second parent. If #{person.id_number} is "
-                        f"married, make sure that's reflected correctly. Otherwise, check the "
-                        f"parents entry for #{child.id_number}.",
-                    )
 
-                if child.parents == (person.id_number, spouse.id_number if spouse else None):
-                    person_is_partner1 = True
+                match child.parents:
+                    case (spouse.id_number, person.id_number):
+                        person_is_partner1 = False
+                    case (person.id_number, spouse.id_number):
+                        person_is_partner1 = True
+                    case (None, spouse.id_number) | (spouse.id_number, None):
+                        match error_manager.show_warning(
+                            "Child missing one parent",
+                            f"#{child.id_number} is listed as the child of #{spouse.id_number}, "
+                            f"but they do not list #{spouse.id_number} as a parent.",
+                            {
+                                "a": f"Add #{spouse.id_number} to #{child.id_number}'s parents "
+                                     f"entry",
+                            },
+                            f"missing_parent_p.{child.id_number}.{person.id_number}.{spouse.id_number}",
+                        ):
+                            case "a":
+                                child.parents[child.parents.index(None)] = spouse.id_number
+                    case (None, person.id_number ) | (person.id_number, None):
+                        match error_manager.show_warning(
+                            "Child missing one parent",
+                            f"#{child.id_number} is listed as the child of #{person.id_number}, "
+                            f"but they do not list #{person.id_number} as a parent.",
+                            {
+                                "a": f"Add #{person.id_number} to #{child.id_number}'s parents "
+                                     f"entry",
+                            },
+                            f"missing_parent_s.{child.id_number}.{person.id_number}.{spouse.id_number}",
+                        ):
+                            case "a":
+                                child.parents[child.parents.index(None)] = spouse.id_number
+                    case (None, None):
+                        match error_manager.show_warning(
+                            "Child missing both parents",
+                            f"#{child.id_number} is listed as the child of #{person.id_number} and "
+                            f"#{spouse.id_number}. However, they do not have any parents listed.",
+                            {
+                                "a": f"Add #{person.id_number} and #{spouse.id_number} to "
+                                     f"#{child.id_number}'s parents entry",
+                                "d": f"Add #{spouse.id_number} and #{person.id_number} to "
+                                     f"#{child.id_number}'s parents entry",
+                            },
+                            f"missing_parent_b.{child.id_number}.{person.id_number}.{spouse.id_number}",
+                        ):
+                            case "a":
+                                child.parents = [person.id_number, spouse.id_number]
+                            case "d":
+                                child.parents = [spouse.id_number, person.id_number]
 
                 family.children.append(child)
 

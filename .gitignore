@@ -13,6 +13,7 @@ wheels/
 *.ods
 .~lock.*.ods#
 out.csv
+choices.poppa.csv
 
 # Tool caches
 .*_cache/

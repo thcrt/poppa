@@ -6,9 +6,12 @@ import rich
 import rich.table
 import typer
 
+from .errors import ErrorManager
+
 app = typer.Typer(pretty_exceptions_enable=False)
 stdout = rich.console.Console()
 stderr = rich.console.Console(stderr=True)
+error_manager = ErrorManager(Path("./choices.poppa.csv"), stdout, stderr)
 
 
 class DisplayFormat(StrEnum):
