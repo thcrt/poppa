@@ -9,8 +9,11 @@ from .dates import Date
 from .places import PlacesManager
 
 
+NAME_REGEX = r"(?P<first>[\w ]+)(?:\((?P<nick>[\w ]*)\))?"
+
+
 def clean_cell(cell: Any) -> str | None:
-    cell = str(cell).strip()
+    cell = str(cell).strip(" .")
     return (
         None
         if cell
@@ -38,6 +41,7 @@ class Person:
     id_number: int | None = None
     first: str | None = None
     last: str | None = None
+    nick: str | None = None
     birth_date: Date | None = None
     birth_place: PlacesManager.Place | None = None
     death_date: Date | None = None
@@ -79,9 +83,13 @@ class Person:
                 "Invalid ID number format",
                 f"The ID number provided as `{data[0][0]}` can't be parsed.",
             )
+        
+        name_match = re.search(NAME_REGEX, clean_cell(data[1][1])) if data[1][1] else None
+        if name_match:
+            person.first = name_match["first"].title() if name_match["first"] else None
+            person.nick = name_match["nick"].title() if name_match["nick"] else None
 
-        person.first = data[1][1].title() if data[1][1] else None
-        person.last = data[0][1].title() if data[0][1] else None
+        person.last = clean_cell(data[0][1]).title() if data[0][1] else None
 
         person.notes = "  ".join(cell for cell in (data[0][8:] + data[1][8:]) if cell)
 

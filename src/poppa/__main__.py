@@ -43,6 +43,7 @@ def parse(
     people_table = Table(
         "ID",
         "First",
+        "Nick",
         "Last",
         "Birth date",
         "Birth place",
@@ -54,6 +55,7 @@ def parse(
         people_table.add_row(
             str(person.id_number),
             person.first,
+            person.nick,
             person.last,
             person.birth_date,
             person.birth_place,
