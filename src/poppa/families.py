@@ -105,7 +105,7 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                             {
                                 "a": f"Add #{spouse.id_number}'s children to #{person.id_number}",
                             },
-                            f"missing_children_p.{person.id_number}.{spouse.id_number}.{'.'.join(spouse.marriage.children)}"
+                            f"missing_children_p.{person.id_number}.{spouse.id_number}.{'.'.join(str(child_id) for child_id in spouse.marriage.children)}"
                         ):
                             case "a":
                                 person.marriage.children = spouse.marriage.children
