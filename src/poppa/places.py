@@ -17,13 +17,12 @@ class PlacesManager:
         type: str
         coords: str
         enclosed_by: str | None
-        uncertain: bool = False
 
         def __str__(self) -> str:
-            return f"{self.name}" + (" [???]" if self.uncertain else "")
+            return self.name
 
         def __rich__(self) -> str:
-            return self.name.split(", ")[0]
+            return self.name
 
     places: dict[str, Place] = {}
 
@@ -42,11 +41,12 @@ class PlacesManager:
                 enclosed_by=info.get("enclosed_by"),
             )
 
-    def from_entry(self, entry: str | None) -> Place | None:
-        if entry is None:
+    def from_entry(self, entry: str) -> Place | None:
+        entry = entry.strip(" .?")
+        if entry == "":
             return None
         for place in self.places.values():
-            if place.pattern and re.fullmatch(place.pattern, entry.strip(" .?")):
+            if place.pattern and re.fullmatch(place.pattern, entry):
                 return place
         # If we didn't return yet, we didn't match a pattern, so we raise an error.
         raise errors.UnknownPlaceNameError

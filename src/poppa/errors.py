@@ -93,7 +93,7 @@ class ErrorManager:
             )
         )
 
-        response = Prompt.ask(choices=options.keys())
+        response = Prompt.ask(choices=list(options.keys()))
         if quittable and response == "q":
             raise SystemExit
         self._save_response(save_key, response)

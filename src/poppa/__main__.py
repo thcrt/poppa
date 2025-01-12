@@ -1,10 +1,11 @@
 from enum import StrEnum, auto
 from pathlib import Path
+from typing import Annotated
 
 import pyexcel  # type: ignore
-from rich.table import Table
-from rich.console import Console
 import typer
+from rich.console import Console
+from rich.table import Table
 
 from .errors import ErrorManager
 
@@ -22,11 +23,11 @@ class DisplayFormat(StrEnum):
 
 @app.command()
 def parse(
-    file: Path = typer.Argument(help="The spreadsheet to parse."),
-    out: Path = typer.Argument(help="Where to output the CSV file for Gramps."),
-    places_file: Path | None = typer.Option(
-        None, help="A TOML file detailing place names for parsing."
-    ),
+    file: Annotated[Path, typer.Argument(help="The spreadsheet to parse.")],
+    out: Annotated[Path, typer.Argument(help="Where to output the CSV file for Gramps.")],
+    places_file: Annotated[
+        Path | None, typer.Option(help="A TOML file detailing place names for parsing.")
+    ] = None,
 ) -> None:
     """Parse an ODS spreadsheet into a Gramps-formatted CSV file."""
     from poppa.export import export
@@ -88,17 +89,11 @@ def parse(
     stdout.rule(style="bold white")
     stdout.rule(style="bold white")
 
-    export_table = Table(
-        "Kind",
-        "Quantity",
-        title="Records exported"
-    )
+    export_table = Table("Kind", "Quantity", title="Records exported")
     for record_type, number_exported in written.items():
-        export_table.add_row(
-            record_type.title(),
-            str(number_exported)
-        )
+        export_table.add_row(record_type.title(), str(number_exported))
     stdout.print(export_table)
+
 
 if __name__ == "__main__":
     app()

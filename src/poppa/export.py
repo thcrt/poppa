@@ -64,6 +64,9 @@ def write_people(people: dict[int, Person], buf: io.TextIOBase) -> int:
     writer = csv.DictWriter(buf, fieldnames=PERSON_COLUMNS)
     writer.writeheader()
     for person_id, person in people.items():
+        notes = person.notes
+        if person.nick is not None:
+            notes = f"{notes}  NICKNAME: {person.nick}"
         writer.writerow(
             {
                 "person": f"person_{person_id}",
@@ -73,7 +76,7 @@ def write_people(people: dict[int, Person], buf: io.TextIOBase) -> int:
                 "birthplaceid": f"place_{person.birth_place.id}" if person.birth_place else None,
                 "deathdate": person.death_date,
                 "deathplaceid": f"place_{person.death_place.id}" if person.death_place else None,
-                "note": person.notes + (f"  NICKNAME: {person.nick}" if person.nick else ""),
+                "note": notes,
             }
         )
         written += 1

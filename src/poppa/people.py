@@ -8,14 +8,13 @@ from .__main__ import error_manager
 from .dates import Date
 from .places import PlacesManager
 
-
 NAME_REGEX = r"(?P<first>[\w ]+)(?:\((?P<nick>[\w ]*)\))?"
 
 
-def clean_cell(cell: Any) -> str | None:
+def clean_cell(cell: Any) -> str:
     cell = str(cell).strip(" .")
     return (
-        None
+        ""
         if cell
         in (
             "",
@@ -64,8 +63,8 @@ class Person:
             return matches[0]
         else:
             raise errors.MultipleReferencesError
-    
-    def __post_init__(self):
+
+    def __post_init__(self) -> None:
         if self.parents == []:
             self.parents = [None, None]
 
@@ -83,8 +82,8 @@ class Person:
                 "Invalid ID number format",
                 f"The ID number provided as `{data[0][0]}` can't be parsed.",
             )
-        
-        name_match = re.search(NAME_REGEX, clean_cell(data[1][1])) if data[1][1] else None
+
+        name_match = re.search(NAME_REGEX, clean_cell(data[1][1]))
         if name_match:
             person.first = name_match["first"].title() if name_match["first"] else None
             person.nick = name_match["nick"].title() if name_match["nick"] else None

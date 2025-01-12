@@ -21,8 +21,9 @@ def build_families(people: dict[int, Person]) -> list[Family]:
     for person in people.values():
         already_processed = False
         for family in families:
-            if (family.partner1 and family.partner1.id_number == person.id_number) \
-            or (family.partner2 and family.partner2.id_number == person.id_number):
+            if (family.partner1 and family.partner1.id_number == person.id_number) or (
+                family.partner2 and family.partner2.id_number == person.id_number
+            ):
                 # Person was already processed as the spouse of a previous person
                 already_processed = True
         if already_processed:
@@ -63,6 +64,7 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                             if spouse.marriage is None:
                                 spouse.marriage = Marriage()
                             spouse.marriage.spouse = person.id_number
+                assert isinstance(spouse.marriage, Marriage)
                 if spouse.marriage.spouse != person.id_number:
                     error_manager.show_error(
                         "Marriage not reciprocated",
@@ -79,7 +81,8 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                             "a": f"Use `{person.marriage.date}` for both spouses",
                             "d": f"Use `{spouse.marriage.date}` for both spouses",
                         },
-                        f"marriage_date.{person.id_number}.{person.marriage.date}.{spouse.id_number}.{spouse.marriage.date}",
+                        f"marriage_date.{person.id_number}.{person.marriage.date}."
+                        f"{spouse.id_number}.{spouse.marriage.date}",
                     ):
                         case "a":
                             spouse.marriage.date = person.marriage.date
@@ -94,7 +97,8 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                             "a": f"Use `{person.marriage.place}` for both spouses",
                             "d": f"Use `{spouse.marriage.place}` for both spouses",
                         },
-                        f"marriage_place.{person.id_number}.{person.marriage.place}.{spouse.id_number}.{spouse.marriage.place}",
+                        f"marriage_place.{person.id_number}.{person.marriage.place}."
+                        f"{spouse.id_number}.{spouse.marriage.place}",
                     ):
                         case "a":
                             spouse.marriage.place = person.marriage.place
@@ -109,7 +113,8 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                             {
                                 "a": f"Add #{spouse.id_number}'s children to #{person.id_number}",
                             },
-                            f"missing_children_p.{person.id_number}.{spouse.id_number}.{'.'.join(str(child_id) for child_id in spouse.marriage.children)}",
+                            f"missing_children_p.{person.id_number}.{spouse.id_number}."
+                            f"{'.'.join(str(child_id) for child_id in spouse.marriage.children)}",
                         ):
                             case "a":
                                 person.marriage.children = spouse.marriage.children
@@ -121,7 +126,8 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                             {
                                 "a": f"Add #{person.id_number}'s children to #{spouse.id_number}",
                             },
-                            f"missing_children_s.{person.id_number}.{spouse.id_number}.{'.'.join(str(child_id) for child_id in person.marriage.children)}",
+                            f"missing_children_s.{person.id_number}.{spouse.id_number}."
+                            f"{'.'.join(str(child_id) for child_id in person.marriage.children)}",
                         ):
                             case "a":
                                 spouse.marriage.children = person.marriage.children
@@ -130,7 +136,8 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                     else:
                         error_manager.show_error(
                             "Children don't match",
-                            f"Children for #{person.id_number} and #{spouse.id_number} don't match! \n"
+                            f"Children for #{person.id_number} and #{spouse.id_number} don't "
+                            f"match! \n"
                             f"#{person.id_number}'s children are: {person.marriage.children} \n"
                             f"#{spouse.id_number}'s children are: {spouse.marriage.children}",
                         )
