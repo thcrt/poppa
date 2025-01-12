@@ -1,12 +1,11 @@
-from pathlib import Path
-import re
 import csv
+import re
+from pathlib import Path
 
+from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.text import Text
-from rich.console import Console
-
 
 
 class PoppaBaseError(Exception):
@@ -25,7 +24,7 @@ class MultipleReferencesError(PoppaBaseError):
     pass
 
 
-class ErrorManager():
+class ErrorManager:
     save_file: Path
     stdout: Console
     stderr: Console
@@ -34,8 +33,8 @@ class ErrorManager():
         self.save_file = save_file
         self.stdout = stdout
         self.stderr = stderr
-    
-    def _format_message(self, msg: str):
+
+    def _format_message(self, msg: str) -> str:
         return re.sub(r"#(\d+)", r"[dim]#[/dim][bold]\g<1>[/bold]", msg)
 
     def show_error(self, title: str, msg: str) -> None:
@@ -49,8 +48,8 @@ class ErrorManager():
             )
         )
         raise SystemExit
-    
-    def _save_response(self, save_key: str, response: str, mode = "a") -> None:
+
+    def _save_response(self, save_key: str, response: str, mode: str = "a") -> None:
         try:
             with self.save_file.open(mode) as f:
                 writer = csv.writer(f)
@@ -72,7 +71,9 @@ class ErrorManager():
         except FileNotFoundError:
             return None
 
-    def show_warning(self, title: str, msg: str, options: dict[str, str], save_key: str, quittable=True) -> str:
+    def show_warning(
+        self, title: str, msg: str, options: dict[str, str], save_key: str, quittable: bool = True
+    ) -> str:
         previous_response = self._get_response(save_key)
         if previous_response:
             return previous_response
@@ -97,4 +98,3 @@ class ErrorManager():
             raise SystemExit
         self._save_response(save_key, response)
         return response
-

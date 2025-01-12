@@ -1,9 +1,9 @@
 from dataclasses import dataclass, field
 
-from .dates import Date
-from .people import Person, Marriage
-from .places import PlacesManager
 from .__main__ import error_manager
+from .dates import Date
+from .people import Marriage, Person
+from .places import PlacesManager
 
 
 @dataclass
@@ -82,7 +82,7 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                         case "d":
                             person.marriage.date = spouse.marriage.date
                 if spouse.marriage.place != person.marriage.place:
-                   match error_manager.show_warning(
+                    match error_manager.show_warning(
                         "Marriage places don't match",
                         f"Marriage places for #{person.id_number} (`{person.marriage.place}`) and "
                         f"#{spouse.id_number} (`{spouse.marriage.place}`) don't match!",
@@ -105,7 +105,7 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                             {
                                 "a": f"Add #{spouse.id_number}'s children to #{person.id_number}",
                             },
-                            f"missing_children_p.{person.id_number}.{spouse.id_number}.{'.'.join(str(child_id) for child_id in spouse.marriage.children)}"
+                            f"missing_children_p.{person.id_number}.{spouse.id_number}.{'.'.join(str(child_id) for child_id in spouse.marriage.children)}",
                         ):
                             case "a":
                                 person.marriage.children = spouse.marriage.children
@@ -117,7 +117,7 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                             {
                                 "a": f"Add #{person.id_number}'s children to #{spouse.id_number}",
                             },
-                            f"missing_children_s.{person.id_number}.{spouse.id_number}.{'.'.join(str(child_id) for child_id in person.marriage.children)}"
+                            f"missing_children_s.{person.id_number}.{spouse.id_number}.{'.'.join(str(child_id) for child_id in person.marriage.children)}",
                         ):
                             case "a":
                                 spouse.marriage.children = person.marriage.children
@@ -152,7 +152,6 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                 if spouse is None:
                     spouse = Person()
 
-
                 match child.parents:
                     case (spouse.id_number, person.id_number):
                         person_is_partner1 = False
@@ -165,20 +164,20 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                             f"but they do not list #{spouse.id_number} as a parent.",
                             {
                                 "a": f"Add #{spouse.id_number} to #{child.id_number}'s parents "
-                                     f"entry",
+                                f"entry",
                             },
                             f"missing_parent_p.{child.id_number}.{person.id_number}.{spouse.id_number}",
                         ):
                             case "a":
                                 child.parents[child.parents.index(None)] = spouse.id_number
-                    case (None, person.id_number ) | (person.id_number, None):
+                    case (None, person.id_number) | (person.id_number, None):
                         match error_manager.show_warning(
                             "Child missing one parent",
                             f"#{child.id_number} is listed as the child of #{person.id_number}, "
                             f"but they do not list #{person.id_number} as a parent.",
                             {
                                 "a": f"Add #{person.id_number} to #{child.id_number}'s parents "
-                                     f"entry",
+                                f"entry",
                             },
                             f"missing_parent_s.{child.id_number}.{person.id_number}.{spouse.id_number}",
                         ):
@@ -191,9 +190,9 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                             f"#{spouse.id_number}. However, they do not have any parents listed.",
                             {
                                 "a": f"Add #{person.id_number} and #{spouse.id_number} to "
-                                     f"#{child.id_number}'s parents entry",
+                                f"#{child.id_number}'s parents entry",
                                 "d": f"Add #{spouse.id_number} and #{person.id_number} to "
-                                     f"#{child.id_number}'s parents entry",
+                                f"#{child.id_number}'s parents entry",
                             },
                             f"missing_parent_b.{child.id_number}.{person.id_number}.{spouse.id_number}",
                         ):

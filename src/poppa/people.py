@@ -4,9 +4,9 @@ from itertools import batched
 from typing import Any, Self
 
 from . import errors
+from .__main__ import error_manager
 from .dates import Date
 from .places import PlacesManager
-from .__main__ import error_manager
 
 
 def clean_cell(cell: Any) -> str | None:
@@ -44,7 +44,7 @@ class Person:
     death_place: PlacesManager.Place | None = None
     notes: str | None = None
 
-    parents: tuple[int | None, int | None] = (None, None)
+    parents: list[int | None] = field(default_factory=list)
     marriage: Marriage | None = None
 
     @staticmethod
@@ -60,6 +60,10 @@ class Person:
             return matches[0]
         else:
             raise errors.MultipleReferencesError
+    
+    def __post_init__(self):
+        if self.parents == []:
+            self.parents = [None, None]
 
     @classmethod
     def from_cells(cls, cells: tuple[list[Any], list[Any]], places_manager: PlacesManager) -> Self:
@@ -73,7 +77,7 @@ class Person:
         except ValueError:
             error_manager.show_error(
                 "Invalid ID number format",
-                f"The ID number provided as `{data[0][0]}` can't be parsed."
+                f"The ID number provided as `{data[0][0]}` can't be parsed.",
             )
 
         person.first = data[1][1].title() if data[1][1] else None
@@ -114,7 +118,7 @@ class Person:
                 "Multiple spouses listed",
                 f"#{person.id_number} has the spouse entry `{data[0][4]}`, which was parsed as "
                 f"containing the IDs {cls.find_id_numbers(data[0][4])}. They should only have 1 "
-                f"spouse!"
+                f"spouse!",
             )
         children = cls.find_id_numbers(
             str(data[0][5]) if data[0][5] else "" + str(data[1][5]) if data[1][5] else ""
