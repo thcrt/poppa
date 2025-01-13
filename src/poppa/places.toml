@@ -9,12 +9,83 @@ type = "Region"
 coords = "-37.8, 175.4"
 enclosed_by = "nz"
 
+[thames]
+name = "Thames"
+pattern = '^Thames ?NZ$'
+type = "Town"
+coords = "-37.138389, 175.5405"
+enclosed_by = "waikato"
+
+[putararu]
+name = "Putāruru"
+pattern = '^Putararu ?NZ$'
+type = "Town"
+coords = "-38.05, 175.78"
+enclosed_by = "waikato"
+
+[paeroa]
+name = "Paeroa"
+pattern = '^Paeroa ?NZ$'
+type = "Town"
+coords = "-37.375, 175.666667"
+enclosed_by = "waikato"
+
+[te_awamutu]
+name = "Te Awamutu"
+pattern = '^Te Awam(?:utu)? ?(?:NZ)?$'
+type = "Town"
+coords = "-38.016667, 175.316667"
+enclosed_by = "waikato"
+
+[te_aroha]
+name = "Te Aroha"
+pattern = '^Te Aroha ?NZ$'
+type = "Town"
+coords = "-37.533333, 175.716667"
+enclosed_by = "waikato"
+
+[ohaupo]
+name = "Ōhaupō"
+pattern = '^Ohaupo NZ$'
+type = "Town"
+coords = "-37.91989, 175.307465"
+enclosed_by = "waikato"
+
+[huntly]
+name = "Huntly"
+pattern = '^Huntly NZ$'
+type = "Town"
+coords = "-37.558333, 175.158333"
+enclosed_by = "waikato"
+
+[te_kuiti]
+name = "Te Kūiti"
+pattern = '^Te ?Kuiti ?NZ$'
+type = "Town"
+coords = "-38.333333, 175.166667"
+enclosed_by = "waikato"
+
+[whitianga]
+name = "Whitianga"
+pattern = '^Whitianga NZ$'
+type = "Town"
+coords = "-36.833333, 175.7"
+enclosed_by = "waikato"
+
 [hamilton]
 name = "Hamilton"
-pattern = '^[Hh]am(?:ilton)? ?(?:N[Zz])?$'
+pattern = '^[Hh]am(?:ilton)? ?(?:[Nn][Zz])?$'
 type = "City"
 coords = "-37.783333, 175.283333"
 enclosed_by = "waikato"
+
+[frankton]
+# Note - There is also a suburb of Queenstown in Otago called Frankton!
+name = "Frankton"
+pattern = '^Frankton ?NZ$'
+type = "Neighborhood"
+coords = "-45.016667, 168.733333"
+enclosed_by = "hamilton"
 
 [te_rapa]
 name = "Te Rapa"
@@ -32,7 +103,7 @@ enclosed_by = "waikato"
 
 [cambridge]
 name = "Cambridge"
-pattern = '^[Cc]a?m?br?i?dge ?N[Zz]$'
+pattern = '^[Cc]a?m?br?i?d(?:ge)? ?N[Zz]$'
 type = "Town"
 coords = "-37.883333, 175.466667"
 enclosed_by = "waikato"
@@ -60,7 +131,7 @@ enclosed_by = "waikato"
 
 [morrinsville]
 name = "Morrinsville"
-pattern = '^Morr?insvill?[e-]? ?N?Z?$'
+pattern = '^Morr?ins?v(?:il)?l?[e-]? ?N?Z?$'
 type = "Town"
 coords = "-37.65, 175.516667"
 enclosed_by = "waikato"
@@ -75,15 +146,57 @@ enclosed_by = "waikato"
 [opito_bay]
 name = "Opito Bay"
 pattern = '^Opito Bay NZ$'
-type = ""
+type = "Hamlet"
 coords = "-36.7169, 175.7971"
 enclosed_by = "waikato"
+
+[hawkes_bay]
+name = "Hawke's Bay"
+type = "Region"
+coords = "-39.416667, 176.816667"
+enclosed_by = "nz"
+
+[napier]
+name = "Napier"
+pattern = '^Napier ?(?:N[Zz])?$'
+type = "City"
+coords = "-39.490278, 176.917778"
+enclosed_by = "hawkes_bay"
+
+[hastings]
+name = "Hastings"
+pattern = '^[Hh]astings ?NZ$'
+type = "City"
+coords = "-39.641667, 176.844444"
+enclosed_by = "hawkes_bay"
 
 [canterbury]
 name = "Canterbury"
 type = "Region"
 coords = "-43.6, 172"
 enclosed_by = "nz"
+
+[rakaia]
+name = "Rakaia"
+pattern = '^Rakaia NZ$'
+type = "Town"
+coords = "-43.75, 172.016667"
+enclosed_by = "canterbury"
+
+[lincoln]
+# Note - There is also a suburb of Auckland called Lincoln!
+name = "Lincoln"
+pattern = '^Lincoln ?NZ$'
+type = "Town"
+coords = "-43.65, 172.483333"
+enclosed_by = "canterbury"
+
+[ashburton]
+name = "Ashburton"
+pattern = '^Ashburton ?(?:NZ)?$'
+type = "Town"
+coords = "-43.905556, 171.745556"
+enclosed_by = "canterbury"
 
 [christchurch]
 name = "Christchurch"
@@ -118,6 +231,20 @@ name = "Manawatū-Whanganui"
 type = "Region"
 coords = "-39.6, 175.6"
 enclosed_by = "nz"
+
+[palmerston_north]
+name = "Palmerston North"
+pattern = '^Palm(?:erston)? N(?:or)?th ?NZ$'
+type = "City"
+coords = "-40.355, 175.611667"
+enclosed_by = "manawatu"
+
+[dannevirke]
+name = "Dannevirke"
+pattern = '^Dann[ei]v[ie]rke ?(?:NZ)?$'
+type = "Town"
+coords = "-40.206111, 176.099444"
+enclosed_by = "manawatu"
 
 [raetihi]
 name = "Raetihi"
@@ -160,11 +287,31 @@ type = "Town"
 coords = "-35.385833, 174.019722"
 enclosed_by = "northland"
 
+[gisborne_region]
+name = "Gisborne"
+type = "Region"
+coords = "-38.66667, 178.01667"
+enclosed_by = "nz"
+
+[gisborne]
+name = "Gisborne"
+pattern = '^Gisborne ?NZ$'
+type = "City"
+coords = "-38.6625, 178.017778"
+enclosed_by = "gisborne_region"
+
 [taranaki]
 name = "Taranaki"
 type = "Region"
 coords = "-39.3, 174.133333"
 enclosed_by = "nz"
+
+[stratford]
+name = "Stratford"
+pattern = '^Stratford ?NZ$'
+type = "Town"
+coords = "-39.333333, 174.283333"
+enclosed_by = "taranaki"
 
 [kaponga]
 name = "Kaponga"
@@ -175,7 +322,7 @@ enclosed_by = "taranaki"
 
 [new_plymouth]
 name = "New Plymouth"
-pattern = '^N(?:ew)? Plymouth ?NZ$'
+pattern = '^N(?:ew)? Plymouth ?(?:NZ)?$'
 type = "City"
 coords = "-39.057778, 174.074167"
 enclosed_by = "taranaki"
@@ -186,12 +333,33 @@ type = "Region"
 coords = "-36.9, 174.783333"
 enclosed_by = "nz"
 
+[warkworth]
+name = "Warkworth"
+pattern = '^[Ww]arkworth ?NZ$'
+type = "Town"
+coords = "-36.4, 174.666667"
+enclosed_by = "auckland_region"
+
 [auckland]
 name = "Auckland"
-pattern = '^Auck(?:land)? ?(?:N[Zz])?$'
+pattern = '^Auck(?:land)?\.? ?(?:N[Zz])?$'
 type = "City"
 coords = "-36.849167, 174.765278"
 enclosed_by = "auckland_region"
+
+[otahuhu]
+name = "Ōtāhuhu"
+pattern = '^Otahuhu ?NZ$'
+type = "Neighborhood"
+coords = "-36.945278, 174.845"
+enclosed_by = "auckland"
+
+[papatoetoe]
+name = "Papatoetoe"
+pattern = '^Papatoetoe ?NZ$'
+type = "Neighborhood"
+coords = "-36.97977, 174.851224"
+enclosed_by = "auckland"
 
 [waitakere]
 name = "Waitākere"
@@ -223,7 +391,7 @@ enclosed_by = "auckland"
 
 [papakura]
 name = "Papakura"
-pattern = '^Papakura ?NZ$'
+pattern = '^Papa?kura ?NZ$'
 type = "Neighborhood"
 coords = "-37.0625, 174.941944"
 enclosed_by = "auckland"
@@ -254,9 +422,37 @@ type = "Region"
 coords = "-38, 177"
 enclosed_by = "nz"
 
+[te_puke]
+name = "Te Puke"
+pattern = '^Te Puke ?NZ$'
+type = "Town"
+coords = "-37.766667, 176.316667"
+enclosed_by = "bay_of_plenty"
+
+[whakatane]
+name = "Whakatāne"
+pattern = '^Whakat(?:ane)? ?NZ$'
+type = "Town"
+coords = "-37.96, 176.98"
+enclosed_by = "bay_of_plenty"
+
+[tauranga]
+name = "Tauranga"
+pattern = '^Tauranga? ?NZ$'
+type = "City"
+coords = "-37.683333, 176.166667"
+enclosed_by = "bay_of_plenty"
+
+[mt_maunganui]
+name = "Mount Maunganui"
+pattern = '^M(?:oun)?t Maun?g(?:anui)? ?(?:NZ)?$'
+type = "Neighborhood"
+coords = "-37.659757, 176.214844"
+enclosed_by = "tauranga"
+
 [rotorua]
 name = "Rotorua"
-pattern = '^Rotorua(?: NZ)?$'
+pattern = '^Rotorua ?(?:NZ)?$'
 type = "City"
 coords = "-38.137778, 176.251389"
 enclosed_by = "bay_of_plenty"
@@ -266,6 +462,20 @@ name = "Wellington"
 type = "Region"
 coords = "-41.283333, 174.766667"
 enclosed_by = "nz"
+
+[wellington]
+name = "Wellington"
+pattern = '^Wellington ?NZ$'
+type = "City"
+coords = "-41.288889, 174.777222"
+enclosed_by = "wellington_region"
+
+[lower_hutt]
+name = "Lower Hutt"
+pattern = '^Lower Hutt$'
+type = "City"
+coords = "-41.216667, 174.916667"
+enclosed_by = "wellington_region"
 
 [otaki]
 name = "Ōtaki"
@@ -280,18 +490,77 @@ type = "Region"
 coords = "-45.880556, 170.496111"
 enclosed_by = "nz"
 
+[port_chalmers]
+name = "Port Chalmers"
+pattern = '^Port Chalmers$'
+type = "Town"
+coords = "-45.8178, 170.6188"
+enclosed_by = "otago"
+
 [dunedin]
 name = "Dunedin"
-pattern = '^Dunedin NZ$'
+pattern = '^Dunedin ?NZ$'
 type = "City"
 coords = "-45.874167, 170.503611"
 enclosed_by = "otago"
+
+[tasman]
+name = "Tasman"
+type = "Region"
+coords = "-41.5, 172.8"
+enclosed_by = "nz"
+
+[takaka]
+name = "Tākaka"
+pattern = '^Takaka ?NZ$'
+type = "Town"
+coords = "-40.854167, 172.806944"
+enclosed_by = "tasman"
+
+[southland]
+name = "Southland"
+type = "Region"
+coords = "-45.7, 168.1"
+enclosed_by = "nz"
+
+[invercargill]
+name = "Invercargill"
+pattern = '^Invercargill ?NZ$'
+type = "City"
+coords = "-46.413056, 168.3475"
+enclosed_by = "southland"
 
 [australia]
 name = "Australia"
 pattern = '^Aust(?:ralia)?$'
 type = "Country"
 coords = "-25, 133"
+
+[vic]
+name = "Victoria"
+type = "State"
+coords = "-36.854167, 144.281111"
+enclosed_by = "australia"
+
+[melbourne]
+name = "Melbourne"
+pattern = '^Melbou?rne$'
+type = "City"
+coords = "-37.814167, 144.963056"
+enclosed_by = "vic"
+
+[qld]
+name = "Queensland"
+type = "State"
+coords = "-22, 144"
+enclosed_by = "australia"
+
+[brisbane]
+name = "Brisbane"
+pattern = '^Brisbane ?AUS?T?$'
+type = "City"
+coords = "-27.467778, 153.028056"
+enclosed_by = "qld"
 
 [nsw]
 name = "New South Wales"
@@ -301,7 +570,7 @@ enclosed_by = "australia"
 
 [sydney]
 name = "Sydney"
-pattern = '^Syd(?:ney)?.? ?A(?:U|ust(?:ralia)?)$'
+pattern = '^Syd(?:ney)?.? ?A(?:U|US|ust(?:ralia)?)$'
 type = "City"
 coords = "-33.866667, 151.2"
 enclosed_by = "nsw"
@@ -313,7 +582,7 @@ coords = "55, -3"
 
 [england]
 name = "England"
-pattern = '^Eng(?:land)?$'
+pattern = '^(?:Eng|ENG)(?:land)?$'
 type = "Country"
 coords = "53.13, -1.38"
 enclosed_by = "uk"
@@ -323,6 +592,20 @@ name = "London"
 pattern = '^London ?E(?:NG|ng)$'
 type = "City"
 coords = "51.507222, -0.1275"
+enclosed_by = "england"
+
+[ilford]
+name = "Ilford"
+pattern = '^Ilford ?ENG$'
+type = "Neighborhood"
+coords = "51.5575, 0.085833"
+enclosed_by = "london"
+
+[lancashire]
+name = "Lancashire"
+pattern = '^Lanca?s(?:hire)? ?ENG$'
+type = "County"
+coords = "53.8, -2.6"
 enclosed_by = "england"
 
 [scotland]
@@ -336,6 +619,13 @@ name = "Glasgow"
 pattern = '^Glas[cg]ow ?SC$'
 type = "City"
 coords = "55.861111, -4.25"
+enclosed_by = "scotland"
+
+[edinburgh]
+name = "Edinburgh"
+pattern = '^Edinbur(?:gh)? ?SC$'
+type = "City"
+coords = "55.95, -3.183333"
 enclosed_by = "scotland"
 
 [northern_ire]
@@ -387,3 +677,51 @@ pattern = '^Johann?[ea]?sb?u?r?g? ?SA$'
 type = "City"
 coords = "-26.204444, 28.045556"
 enclosed_by = "gauteng"
+
+[barbados]
+name = "Barbados"
+pattern = '^Barbados$'
+type = "Country"
+coords = "13.17, -59.5525"
+
+[canada]
+name = "Canada"
+type = "Country"
+coords = "60, -110"
+
+[british_columbia]
+name = "British Columbia"
+type = "Province"
+coords = "54, -125"
+enclosed_by = "canada"
+
+[kamloops]
+name = "Kamloops"
+pattern = '^Kamloops ?Can$'
+type = "City"
+coords = "50.675833, -120.339444"
+enclosed_by = "british_columbia"
+
+[italy]
+name = "Italy"
+type = "Country"
+coords = "43, 12"
+
+[lombardy]
+name = "Lombardy"
+type = "Region"
+coords = "45.583333, 9.916667"
+enclosed_by = "italy"
+
+[milan]
+name = "Milan"
+pattern = '^Milan ITALY$'
+type = "City"
+coords = "45.466944, 9.19"
+enclosed_by = "lombardy"
+
+[russia]
+name = "Russia"
+pattern = '^Russia$'
+type = "Country"
+coords = "66, 94"
