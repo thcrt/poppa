@@ -614,6 +614,13 @@ type = "Country"
 coords = "57, -4"
 enclosed_by = "uk"
 
+[forfar]
+name = "Forfar"
+pattern = '^For?far SCOT$'
+type = "Town"
+coords = "56.64423, -2.88842"
+enclosed_by = "scotland"
+
 [glasgow]
 name = "Glasgow"
 pattern = '^Glas[cg]ow ?SC$'
