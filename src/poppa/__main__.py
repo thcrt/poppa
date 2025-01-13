@@ -28,6 +28,9 @@ def parse(
     places_file: Annotated[
         Path | None, typer.Option(help="A TOML file detailing place names for parsing.")
     ] = None,
+    skip: Annotated[
+        int, typer.Option(help="How many rows from the start of the document to skip.")
+    ] = 0,
 ) -> None:
     """Parse an ODS spreadsheet into a Gramps-formatted CSV file."""
     from poppa.export import export
@@ -35,7 +38,7 @@ def parse(
     from poppa.people import build_people
     from poppa.places import PlacesManager
 
-    data = pyexcel.get_array(file_name=str(file))
+    data = pyexcel.get_array(file_name=str(file))[skip:]
     places_manager = PlacesManager(places_file)
 
     people = build_people(data, places_manager)
