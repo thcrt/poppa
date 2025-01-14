@@ -54,7 +54,9 @@ class Date:
             date.end_year = int(match["ey"])
 
         if date.year and (date.start_year or date.end_year):
-            raise InvalidDateError
+            raise InvalidDateError(entry)
+        if date.month and date.month > 12:
+            raise InvalidDateError(entry)
 
         return date
 
