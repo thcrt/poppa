@@ -24,6 +24,10 @@ class MultipleReferencesError(PoppaBaseError):
     pass
 
 
+class UnknownGenderError(PoppaBaseError):
+    pass
+
+
 class ErrorManager:
     save_file: Path
     stdout: Console

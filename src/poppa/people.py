@@ -1,7 +1,10 @@
 import re
 from dataclasses import dataclass, field
+from enum import StrEnum, auto
 from itertools import batched
 from typing import Any, Self
+
+import gender_guesser.detector  # type: ignore
 
 from . import errors
 from .__main__ import error_manager
@@ -9,6 +12,22 @@ from .dates import Date
 from .places import PlacesManager
 
 NAME_REGEX = r"(?P<first>[\w ]+)(?:\((?P<nick>[\w ]*)\))?"
+GENDER_DETECTOR = gender_guesser.detector.Detector()
+
+
+class Gender(StrEnum):
+    male = auto()
+    female = auto()
+
+    @classmethod
+    def from_name(cls, name: str) -> "Gender":
+        match GENDER_DETECTOR.get_gender(name):
+            case "male":
+                return cls.male
+            case "female":
+                return cls.female
+            case _:
+                raise errors.UnknownGenderError
 
 
 def clean_cell(cell: Any) -> str:
@@ -41,6 +60,7 @@ class Person:
     first: str | None = None
     last: str | None = None
     nick: str | None = None
+    gender: Gender | None = None
     birth_date: Date | None = None
     birth_place: PlacesManager.Place | None = None
     death_date: Date | None = None
@@ -87,6 +107,26 @@ class Person:
         if name_match:
             person.first = name_match["first"].title() if name_match["first"] else None
             person.nick = name_match["nick"].title() if name_match["nick"] else None
+            try:
+                person.gender = Gender.from_name(person.first.split()[0]) if person.first else None
+            except errors.UnknownGenderError:
+                match error_manager.show_warning(
+                    "Unknown gender",
+                    f"#{person.id_number} has the first name {person.first}, and their gender "
+                    f"couldn't be determined.",
+                    {
+                        "m": "Person is male",
+                        "f": "Person is female",
+                        "u": "Gender is unknown",
+                    },
+                    f"unknown_gender.{person.id_number}.{person.first}",
+                ):
+                    case "m":
+                        person.gender = Gender.male
+                    case "f":
+                        person.gender = Gender.female
+                    case "u":
+                        person.gender = None
 
         person.last = clean_cell(data[0][1]).title() if data[0][1] else None
 

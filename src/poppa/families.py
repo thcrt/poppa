@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 
 from .__main__ import error_manager
 from .dates import Date
-from .people import Marriage, Person
+from .people import Gender, Marriage, Person
 from .places import PlacesManager
 
 
@@ -214,12 +214,69 @@ def build_families(people: dict[int, Person]) -> list[Family]:
 
                 family.children.append(child)
 
-            if person_is_partner1:
+            if person_is_partner1 and person.gender == Gender.male:
                 family.partner1 = person
                 family.partner2 = spouse
-            else:
+            elif (not person_is_partner1) and (person.gender == Gender.female):
                 family.partner1 = spouse
                 family.partner2 = person
+            else:
+                if spouse:
+                    partner_genders = error_manager.show_warning(
+                        "Unclear genders of partners",
+                        f"#{person.id_number if person_is_partner1 else spouse.id_number} is the first "
+                        f"partner in their marriage, and "
+                        f"#{spouse.id_number if person_is_partner1 else person.id_number} is the "
+                        f"second. However, #{person.id_number} has the gender `{person.gender}`, and "
+                        f"#{spouse.id_number} has the gender {spouse.gender}. If a relationship "
+                        f"is between a man and a woman, the man should be the first partner, and the "
+                        f"woman should be the second partner. \n"
+                        f"#{person.id_number}: `{person.first} {person.last}` \n"
+                        f"#{spouse.id_number}: `{spouse.first} {spouse.last}`",
+                        {
+                            "a": f"#{person.id_number} is m/p1, #{spouse.id_number} is f/p2",
+                            "d": f"#{spouse.id_number} is m/p1, #{person.id_number} is f/p2",
+                            "c": f"Both #{person.id_number} and #{spouse.id_number} are male",
+                            "z": f"Both #{person.id_number} and #{spouse.id_number} are female",
+                        },
+                        f"partner_gender.{person.id_number}.{spouse.id_number}",
+                    )
+                    if partner_genders == "a":
+                        person.gender = Gender.male
+                        spouse.gender = Gender.female
+                    if partner_genders == "d":
+                        person.gender = Gender.female
+                        spouse.gender = Gender.male
+                    if partner_genders == "c":
+                        person.gender = Gender.male
+                        spouse.gender = Gender.male
+                    if partner_genders == "z":
+                        person.gender = Gender.female
+                        spouse.gender = Gender.female
+
+                    if (person.gender == Gender.female) or (spouse.gender == Gender.male):
+                        family.partner1 = spouse
+                        family.partner2 = person
+                    else:
+                        family.partner1 = person
+                        family.partner2 = spouse
+                else:
+                    match error_manager.show_warning(
+                        "Unclear gender of single partner",
+                        f"#{person.id_number} (`{person.first} {person.last}`) is a single "
+                        f"partner, but their gender isn't known!",
+                        {"a": "Male", "d": "Female", "s": "Unknown"},
+                        f"single_gender.{person.id_number}",
+                    ):
+                        case "a":
+                            person.gender = Gender.male
+                            family.partner1 = person
+                        case "d":
+                            person.gender = Gender.female
+                            family.partner2 = person
+                        case "s":
+                            person.gender = None
+                            family.partner1 = person
 
             families.append(family)
 
