@@ -115,7 +115,7 @@ class Person:
             error_manager.show_error(
                 "Unknown place name",
                 f"#{person.id_number} lists `{data[1][6]}` as place of death, which couldn't be "
-                f"recognised as a place!!",
+                f"recognised as a place!",
             )
 
         try:
