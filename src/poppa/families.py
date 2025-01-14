@@ -168,7 +168,7 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                         person_is_partner1 = False
                     case (person.id_number, spouse.id_number):
                         person_is_partner1 = True
-                    case (None, spouse.id_number) | (spouse.id_number, None):
+                    case (None, person.id_number) | (person.id_number, None):
                         match error_manager.show_warning(
                             "Child missing one parent",
                             f"#{child.id_number} is listed as the child of #{spouse.id_number}, "
@@ -177,11 +177,11 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                                 "a": f"Add #{spouse.id_number} to #{child.id_number}'s parents "
                                 f"entry",
                             },
-                            f"missing_parent_p.{child.id_number}.{person.id_number}.{spouse.id_number}",
+                            f"missing_parent_s.{child.id_number}.{person.id_number}.{spouse.id_number}",
                         ):
                             case "a":
                                 child.parents[child.parents.index(None)] = spouse.id_number
-                    case (None, person.id_number) | (person.id_number, None):
+                    case (None, spouse.id_number) | (spouse.id_number, None):
                         match error_manager.show_warning(
                             "Child missing one parent",
                             f"#{child.id_number} is listed as the child of #{person.id_number}, "
@@ -190,7 +190,7 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                                 "a": f"Add #{person.id_number} to #{child.id_number}'s parents "
                                 f"entry",
                             },
-                            f"missing_parent_s.{child.id_number}.{person.id_number}.{spouse.id_number}",
+                            f"missing_parent_p.{child.id_number}.{person.id_number}.{spouse.id_number}",
                         ):
                             case "a":
                                 child.parents[child.parents.index(None)] = spouse.id_number
