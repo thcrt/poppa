@@ -232,6 +232,13 @@ type = "Region"
 coords = "-39.6, 175.6"
 enclosed_by = "nz"
 
+[whanganui]
+name = "Whanganui"
+pattern = '^Wh?angan(?:ui)? ?NZ$'
+type = "City"
+coords = "-39.9325, 175.051944"
+enclosed_by = "manawatu"
+
 [palmerston_north]
 name = "Palmerston North"
 pattern = '^Palm(?:erston)? N(?:or)?th ?NZ$'
@@ -629,6 +636,13 @@ type = "County"
 coords = "53.8, -2.6"
 enclosed_by = "england"
 
+[liverpool]
+name = "Liverpool"
+pattern = '^Liverpo(?:ol)? ?ENG$'
+type = "City"
+coords = "53.407222, -2.991667"
+enclosed_by = "england"
+
 [scotland]
 name = "Scotland"
 type = "Country"
@@ -640,6 +654,13 @@ name = "Forfar"
 pattern = '^For?far SCOT$'
 type = "Town"
 coords = "56.64423, -2.88842"
+enclosed_by = "scotland"
+
+[aberdeen]
+name = "Aberdeen"
+pattern = '^Aberdeen ?SC$'
+type = "City"
+coords = "57.15, -2.11"
 enclosed_by = "scotland"
 
 [glasgow]
