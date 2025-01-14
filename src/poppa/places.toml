@@ -333,6 +333,13 @@ type = "Region"
 coords = "-36.9, 174.783333"
 enclosed_by = "nz"
 
+[helensville]
+name = "Helensville"
+pattern = '^Helensv(?:il)?(?:le)? ?NZ$'
+type = "Town"
+coords = "-36.679722, 174.449444"
+enclosed_by = "auckland_region"
+
 [warkworth]
 name = "Warkworth"
 pattern = '^[Ww]arkworth ?NZ$'
@@ -346,6 +353,20 @@ pattern = '^Auck(?:land)?\.? ?(?:N[Zz])?$'
 type = "City"
 coords = "-36.849167, 174.765278"
 enclosed_by = "auckland_region"
+
+[hobsonville]
+name = "Hobsonville"
+pattern = '^Hobsonv(?:ille)? ?NZ$'
+type = "Neighborhood"
+coords = "-36.79145, 174.662447"
+enclosed_by = "auckland"
+
+[howick]
+name = "Howick"
+pattern = '^Howick NZ$'
+type = "Neighborhood"
+coords = "-36.894, 174.932"
+enclosed_by = "auckland"
 
 [otahuhu]
 name = "Ōtāhuhu"
@@ -544,7 +565,7 @@ enclosed_by = "australia"
 
 [melbourne]
 name = "Melbourne"
-pattern = '^Melbou?rne$'
+pattern = '^Melb(?:ou?rne?)? ?(?:AUS)?$'
 type = "City"
 coords = "-37.814167, 144.963056"
 enclosed_by = "vic"
@@ -654,6 +675,12 @@ pattern = '^Indonesia$'
 type = "Country"
 coords = "-5, 120"
 
+[singapore]
+name = "Singapore"
+pattern = '^Singapore$'
+type = "Country"
+coords = "1.283333, 103.833333"
+
 [cook_islands]
 name = "Cook Islands"
 pattern = '^Cook Is(?:lands)?$'
@@ -708,6 +735,12 @@ pattern = '^Kamloops ?Can$'
 type = "City"
 coords = "50.675833, -120.339444"
 enclosed_by = "british_columbia"
+
+[france]
+name = "France"
+pattern = '^FRANCE$'
+type = "Country"
+coords = "47, 2"
 
 [italy]
 name = "Italy"
