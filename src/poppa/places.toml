@@ -9,9 +9,72 @@ type = "Region"
 coords = "-37.8, 175.4"
 enclosed_by = "nz"
 
+[tirohia]
+name = "Tirohia"
+pattern = '^Tirohia NZ$'
+type = "Town"
+coords = "-37.433333, 175.65"
+enclosed_by = "waikato"
+
+[ngatea]
+name = "Ngatea"
+pattern = '^Ngatea NZ$'
+type = "Town"
+coords = "-37.283333, 175.5"
+enclosed_by = "waikato"
+
+[gordonton]
+name = "Gordonton"
+pattern = '^Gordonton ?NZ$'
+type = "Town"
+coords = "-37.67, 175.304"
+enclosed_by = "waikato"
+
+[tokoroa]
+name = "Tokoroa"
+pattern = '^Tokoro?a ?NZ$'
+type = "Town"
+coords = "-38.216667, 175.866667"
+enclosed_by = "waikato"
+
+[arapuni]
+name = "Arapuni"
+pattern = '^Arapuni NZ$'
+type = "Town"
+coords = "-38.066667, 175.65"
+enclosed_by = "waikato"
+
+[otorohanga]
+name = "Ōtorohanga"
+pattern = '^Otoroha(?:nga)? ?N[ZE]$'
+type = "Town"
+coords = "-38.183333, 175.2"
+enclosed_by = "waikato"
+
+[whangamata]
+name = "Whangamatā"
+pattern = '^Whangamata$'
+type = "Town"
+coords = "-37.2, 175.866667"
+enclosed_by = "waikato"
+
+[coroglen]
+name = "Coroglen"
+pattern = '^Cor[oa]glen ?NZ$'
+type = "Hamlet"
+coords = "-36.923889, 175.691944"
+enclosed_by = "waikato"
+
+[taupo]
+name = "Taupō"
+pattern = '^Taupo(?: NZ)?$'
+type = "Town"
+coords = "-38.6875, 176.0694"
+enclosed_by = "waikato"
+
 [thames]
 name = "Thames"
-pattern = '^Thames ?(?:NZ)?$'
+pattern = '^Thames? ?(?:NZ)?$'
 type = "Town"
 coords = "-37.138389, 175.5405"
 enclosed_by = "waikato"
@@ -25,7 +88,7 @@ enclosed_by = "waikato"
 
 [paeroa]
 name = "Paeroa"
-pattern = '^Paeroa ?NZ$'
+pattern = '^Paeroa ?(?:NZ)?$'
 type = "Town"
 coords = "-37.375, 175.666667"
 enclosed_by = "waikato"
@@ -53,7 +116,7 @@ enclosed_by = "waikato"
 
 [huntly]
 name = "Huntly"
-pattern = '^Huntly NZ$'
+pattern = '^Huntly ?NZ$'
 type = "Town"
 coords = "-37.558333, 175.158333"
 enclosed_by = "waikato"
@@ -67,7 +130,7 @@ enclosed_by = "waikato"
 
 [whitianga]
 name = "Whitianga"
-pattern = '^Whitianga NZ$'
+pattern = '^Whitianga(?: NZ)?$'
 type = "Town"
 coords = "-36.833333, 175.7"
 enclosed_by = "waikato"
@@ -103,7 +166,7 @@ enclosed_by = "waikato"
 
 [cambridge]
 name = "Cambridge"
-pattern = '^[Cc]a?m?br?i?d(?:ge)? ?N[Zz]$'
+pattern = '^(?:[Cc]a?m?br?i?d(?:ge)?|Cambrid?g?) ?N[Zz]$'
 type = "Town"
 coords = "-37.883333, 175.466667"
 enclosed_by = "waikato"
@@ -117,7 +180,7 @@ enclosed_by = "waikato"
 
 [matamata]
 name = "Matamata"
-pattern = '^Matamata ?NZ$'
+pattern = '^Matamat?a? ?NZ$'
 type = "Town"
 coords = "-37.816667, 175.766667"
 enclosed_by = "waikato"
@@ -131,14 +194,14 @@ enclosed_by = "waikato"
 
 [morrinsville]
 name = "Morrinsville"
-pattern = '^Morr?ins?v(?:il)?l?[e-]? ?N?Z?$'
+pattern = '^Morr?ins?vi?l?l?[e-]? ?N?Z?$'
 type = "Town"
 coords = "-37.65, 175.516667"
 enclosed_by = "waikato"
 
 ["ngaruawahia"]
 name = "Ngāruawāhia"
-pattern = '^Ngaruawa?hia ?(?:NZ)?$'
+pattern = '^Ngaruawa?(?:hia)? ?(?:NZ)?$'
 type = "Town"
 coords = "-37.666667, 175.15"
 enclosed_by = "waikato"
@@ -182,6 +245,20 @@ name = "Canterbury"
 type = "Region"
 coords = "-43.6, 172"
 enclosed_by = "nz"
+
+[rangiora]
+name = "Rangiora"
+pattern = '^Rangiora$'
+type = "Town"
+coords = "-43.3034, 172.5914"
+enclosed_by = "canterbury"
+
+[springston]
+name = "Springston"
+pattern = '^Springston? ?NZ$'
+type = "Town"
+coords = "-43.633333, 172.416667"
+enclosed_by = "canterbury"
 
 [rakaia]
 name = "Rakaia"
@@ -240,6 +317,26 @@ type = "City"
 coords = "-44.393056, 171.250833"
 enclosed_by = "canterbury"
 
+[temuka]
+name = "Temuka"
+pattern = '^Temuka ?NZ$'
+type = "Town"
+coords = "-44.244444, 171.277778"
+enclosed_by = "canterbury"
+
+[marlborough]
+name = "Marlborough"
+type = "Region"
+coords = "-41.883333, 173.666667"
+enclosed_by = "nz"
+
+[blenheim]
+name = "Blenheim"
+pattern = '^Blenheim?NZ$'
+type = "Town"
+coords = "-41.514, 173.96"
+enclosed_by = "marlborough"
+
 [manawatu]
 name = "Manawatū-Whanganui"
 type = "Region"
@@ -259,6 +356,19 @@ pattern = '^Palm(?:erston)? ?N(?:or)?th ?NZ$'
 type = "City"
 coords = "-40.355, 175.611667"
 enclosed_by = "manawatu"
+
+[feilding]
+name = "Feilding"
+type = "Town"
+coords = "-40.216667, 175.566667"
+enclosed_by = "manawatu"
+
+[makino]
+name = "Makino"
+pattern = '^Makino NZ$'
+type = "Neighborhood"
+coords = "-40.165209, 175.593857"
+enclosed_by = "feilding"
 
 [dannevirke]
 name = "Dannevirke"
@@ -294,6 +404,20 @@ type = "Region"
 coords = "-35.58, 173.97"
 enclosed_by = "nz"
 
+[kaitaia]
+name = "Kaitaia"
+pattern = '^Kaitaia NZ$'
+type = "Town"
+coords = "-35.1125, 173.262778"
+enclosed_by = "northland"
+
+[dargaville]
+name = "Dargaville"
+pattern = '^Dargavil?(?:le)? ?NZ$'
+type = "Town"
+coords = "-35.933333, 173.883333"
+enclosed_by = "northland"
+
 [whangarei]
 name = "Whangārei"
 pattern = '^Whangar?ei ?NZ$'
@@ -316,16 +440,31 @@ enclosed_by = "nz"
 
 [gisborne]
 name = "Gisborne"
-pattern = '^Gisborne ?NZ$'
+pattern = '^Gisborne? ?NZ$'
 type = "City"
 coords = "-38.6625, 178.017778"
 enclosed_by = "gisborne_region"
 
 [taranaki]
 name = "Taranaki"
+pattern = '^Taranaki ?NZ$'
 type = "Region"
 coords = "-39.3, 174.133333"
 enclosed_by = "nz"
+
+[hawera]
+name = "Hāwera"
+pattern = '^Hawera ?NZ$'
+type = "Town"
+coords = "-39.593333, 174.278333"
+enclosed_by = "taranaki"
+
+[opunake]
+name = "Ōpunake"
+pattern = '^Op[ua]nake NZ$'
+type = "Town"
+coords = "-39.45, 173.85"
+enclosed_by = "taranaki"
 
 [stratford]
 name = "Stratford"
@@ -374,6 +513,20 @@ type = "Region"
 coords = "-36.9, 174.783333"
 enclosed_by = "nz"
 
+[rakino_island]
+name = "Rākino Island"
+pattern = '^Rakino Is(?:land)? NZ$'
+type = "Locality"
+coords = "-36.716667, 174.95"
+enclosed_by = "auckland_region"
+
+[pukekohe]
+name = "Pukekohe"
+pattern = '^Pukekohe? ?NZ$'
+type = "Town"
+coords = "-37.2, 174.9"
+enclosed_by = "auckland_region"
+
 [helensville]
 name = "Helensville"
 pattern = '^Hell?ensv(?:il)?(?:le)? ?(?:NZ)?$'
@@ -383,7 +536,7 @@ enclosed_by = "auckland_region"
 
 [warkworth]
 name = "Warkworth"
-pattern = '^[Ww]arkworth? ?NZ$'
+pattern = '^[Ww]arkwort?h? ?NZ$'
 type = "Town"
 coords = "-36.4, 174.666667"
 enclosed_by = "auckland_region"
@@ -394,6 +547,20 @@ pattern = '^[Aa]uck(?:land)?\.? ?(?:N[Zz])?$'
 type = "City"
 coords = "-36.849167, 174.765278"
 enclosed_by = "auckland_region"
+
+[onehunga]
+name = "Onehunga"
+pattern = '^Onehunga? ?NZ$'
+type = "Neighborhood"
+coords = "-36.9223, 174.7838"
+enclosed_by = "auckland"
+
+[beach_haven]
+name = "Beach Haven"
+pattern = '^Beach Haven Auck$'
+type = "Neighborhood"
+coords = "-36.8004, 174.6907"
+enclosed_by = "auckland"
 
 [manurewa]
 name = "Manurewa"
@@ -411,7 +578,7 @@ enclosed_by = "auckland"
 
 [howick]
 name = "Howick"
-pattern = '^Howick NZ$'
+pattern = '^Howick ?NZ$'
 type = "Neighborhood"
 coords = "-36.894, 174.932"
 enclosed_by = "auckland"
@@ -474,7 +641,7 @@ enclosed_by = "auckland"
 
 [papakura]
 name = "Papakura"
-pattern = '^Papa?kura ?NZ$'
+pattern = '^Papa?kur?a? ?(?:NZ)?$'
 type = "Neighborhood"
 coords = "-37.0625, 174.941944"
 enclosed_by = "auckland"
@@ -553,9 +720,16 @@ type = "Region"
 coords = "-41.283333, 174.766667"
 enclosed_by = "nz"
 
+[porirua]
+name = "Porirua"
+pattern = '^Porirua ?NZ$'
+type = "City"
+coords = "-41.133333, 174.85"
+enclosed_by = "wellington_region"
+
 [wellington]
 name = "Wellington"
-pattern = '^Wellington ?NZ$'
+pattern = '^(?:W(?:ellin)?gto?n|Welling) ?NZ$'
 type = "City"
 coords = "-41.288889, 174.777222"
 enclosed_by = "wellington_region"
@@ -594,6 +768,26 @@ type = "City"
 coords = "-45.874167, 170.503611"
 enclosed_by = "otago"
 
+[balclutha]
+name = "Balclutha"
+pattern = '^Balclutha ?NZ$'
+type = "town"
+coords = "-46.233333, 169.75"
+enclosed_by = "otago"
+
+[nelson_region]
+name = "Nelson"
+type = "Region"
+coords = "-41.233333, 173.366667"
+enclosed_by = "nz"
+
+[nelson]
+name = "Nelson"
+pattern = '^Nelson NZ$'
+type = "City"
+coords = "-41.270833, 173.283889"
+enclosed_by = "nelson_region"
+
 [tasman]
 name = "Tasman"
 type = "Region"
@@ -622,7 +816,7 @@ enclosed_by = "southland"
 
 [australia]
 name = "Australia"
-pattern = '^Aust(?:ralia)?$'
+pattern = '^A(?:ust|UST)(?:ralia)?$'
 type = "Country"
 coords = "-25, 133"
 
@@ -634,9 +828,16 @@ enclosed_by = "australia"
 
 [adelaide]
 name = "Adelaide"
-pattern = '^Adelaide AU$'
+pattern = '^Adelaide AUS?$'
 type = "City"
 coords = "-34.9275, 138.6"
+enclosed_by = "sau"
+
+[gawler]
+name = "Gawler"
+pattern = '^Gawler ?AUS$'
+type = "Town"
+coords = "-34.598056, 138.745"
 enclosed_by = "sau"
 
 [wau]
@@ -654,9 +855,24 @@ enclosed_by = "wau"
 
 [vic]
 name = "Victoria"
+pattern = '^Victor(?:ia)? ?AUS$'
 type = "State"
 coords = "-36.854167, 144.281111"
 enclosed_by = "australia"
+
+[maffra]
+name = "Maffra"
+pattern = '^Maffra ?AUS$'
+type = "Town"
+coords = "-37.95, 146.983333"
+enclosed_by = "vic"
+
+[orbost]
+name = "Orbost"
+pattern = '^Orbost ?AUS$'
+type = "Town"
+coords = "-37.7, 148.45"
+enclosed_by = "vic"
 
 [melbourne]
 name = "Melbourne"
@@ -671,6 +887,13 @@ type = "State"
 coords = "-22, 144"
 enclosed_by = "australia"
 
+[gold_coast]
+name = "Gold Coast"
+pattern = '^Gold ?Coas?t? ?AUS$'
+type = "City"
+coords = "-28.016667, 153.4"
+enclosed_by = "qld"
+
 [texas_qld]
 name = "Texas"
 pattern = '^Texas ?QLD$'
@@ -680,7 +903,7 @@ enclosed_by = "qld"
 
 [brisbane]
 name = "Brisbane"
-pattern = '^Brisbane ?AUS?T?$'
+pattern = '^Brisban?e? ?AUS?T?$'
 type = "City"
 coords = "-27.467778, 153.028056"
 enclosed_by = "qld"
@@ -696,6 +919,20 @@ name = "Tweed Heads"
 pattern = '^Tweed Heads AUS$'
 type = "City"
 coords = "-28.183333, 153.55"
+enclosed_by = "nsw"
+
+[bowral]
+name = "Bowral"
+pattern = '^Bow?ral AUS$'
+type = "Town"
+coords = "-34.479167, 150.418056"
+enclosed_by = "nsw"
+
+[taree]
+name = "Taree"
+pattern = '^Taree AUS$'
+type = "City"
+coords = "-31.9, 152.45"
 enclosed_by = "nsw"
 
 [sydney]
@@ -716,6 +953,13 @@ pattern = '^(?:Eng|ENG)(?:land)?$'
 type = "Country"
 coords = "53.13, -1.38"
 enclosed_by = "uk"
+
+[newcastle]
+name = "Newcastle upon Tyne"
+pattern = '^Newcastle ENG$'
+type = "City"
+coords = "54.978, -1.6102"
+enclosed_by = "england"
 
 [london]
 name = "London"
@@ -747,9 +991,17 @@ enclosed_by = "england"
 
 [scotland]
 name = "Scotland"
+pattern = '^SC$'
 type = "Country"
 coords = "57, -4"
 enclosed_by = "uk"
+
+[falkirk]
+name = "Falkirk"
+pattern = '^Falkirk ?S[Cc]$'
+type = "Town"
+coords = "56.0011, -3.7835"
+enclosed_by = "scotland"
 
 [forfar]
 name = "Forfar"
@@ -800,9 +1052,16 @@ enclosed_by = "uk"
 
 [swansea]
 name = "Swansea"
-pattern = '^Swansea ?WA(?:LES)?$'
+pattern = '^Swansea ?(?:WA(?:LES)?|Wal)?$'
 type = "City"
 coords = "51.616667, -3.95"
+enclosed_by = "wales"
+
+[pontypool]
+name = "Pontypool"
+pattern = '^Pontypool? ?WA$'
+type = "Town"
+coords = "51.703, -3.041"
 enclosed_by = "wales"
 
 [indonesia]
@@ -811,11 +1070,29 @@ pattern = '^Indonesia$'
 type = "Country"
 coords = "-5, 120"
 
+[myanmar]
+name = "Myanmar"
+type = "Country"
+coords = "22, 96"
+
+[yangon]
+name = "Yangon"
+pattern = '^[YR]angoo?n ?BUR$'
+type = "City"
+coords = "16.795, 96.16"
+enclosed_by = "myanmar"
+
 [fiji]
 name = "Fiji"
-pattern = '^Fiji$'
+pattern = '^Fiji|FIJI$'
 type = "Country"
 coords = "-18, 179"
+
+[niue]
+name = "Niue"
+pattern = '^N(?:iu|ui)e$'
+type = "Country"
+coords = "-19.05, -169.85"
 
 [singapore]
 name = "Singapore"
@@ -883,6 +1160,12 @@ name = "France"
 pattern = '^FRANCE$'
 type = "Country"
 coords = "47, 2"
+
+[netherlands]
+name = "the Netherlands"
+pattern = '^(?:the Netherlands)|(?:HOLLAND)$'
+type = "Country"
+coords = "52, 6"
 
 [italy]
 name = "Italy"
