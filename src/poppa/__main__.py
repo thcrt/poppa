@@ -31,6 +31,9 @@ def parse(
     skip: Annotated[
         int, typer.Option(help="How many rows from the start of the document to skip.")
     ] = 0,
+    source: Annotated[
+        str | None, typer.Option(help="The title of the source to which data will be attributed.")
+    ] = None,
 ) -> None:
     """Parse an ODS spreadsheet into a Gramps-formatted CSV file."""
     from poppa.export import export
@@ -89,7 +92,7 @@ def parse(
     stdout.print(families_table)
 
     with out.open("w+") as f:
-        written = export(f, people, families, places_manager)
+        written = export(f, people, families, places_manager, source)
 
     stdout.rule(style="bold white")
     stdout.rule(style="bold white")

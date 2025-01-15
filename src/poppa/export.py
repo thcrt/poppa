@@ -19,10 +19,13 @@ PERSON_COLUMNS = [
     "first_name",
     "last_name",
     "gender",
+    "source",
     "birthdate",
     "birthplaceid",
+    "birthsource",
     "deathdate",
     "deathplaceid",
+    "deathsource",
     "note",
 ]
 
@@ -32,11 +35,13 @@ FAMILY_COLUMNS = [
     "parent2",
     "date",
     "placeid",
+    "source",
 ]
 
 CHILDREN_COLUMNS = [
     "family",
     "child",
+    "source",
 ]
 
 
@@ -60,7 +65,7 @@ def write_places(places_manager: PlacesManager, buf: io.TextIOBase) -> int:
     return written
 
 
-def write_people(people: dict[int, Person], buf: io.TextIOBase) -> int:
+def write_people(people: dict[int, Person], source: str | None, buf: io.TextIOBase) -> int:
     written = 0
     writer = csv.DictWriter(buf, fieldnames=PERSON_COLUMNS)
     writer.writeheader()
@@ -74,10 +79,13 @@ def write_people(people: dict[int, Person], buf: io.TextIOBase) -> int:
                 "first_name": person.first,
                 "last_name": person.last,
                 "gender": person.gender,
+                "source": source,
                 "birthdate": person.birth_date,
                 "birthplaceid": f"place_{person.birth_place.id}" if person.birth_place else None,
+                "birthsource": source if person.birth_date or person.birth_place else None,
                 "deathdate": person.death_date,
                 "deathplaceid": f"place_{person.death_place.id}" if person.death_place else None,
+                "deathsource": source if person.death_date or person.death_place else None,
                 "note": notes,
             }
         )
@@ -85,7 +93,7 @@ def write_people(people: dict[int, Person], buf: io.TextIOBase) -> int:
     return written
 
 
-def write_marriages(families: list[Family], buf: io.TextIOBase) -> int:
+def write_marriages(families: list[Family], source: str | None, buf: io.TextIOBase) -> int:
     written = 0
     writer = csv.DictWriter(buf, fieldnames=FAMILY_COLUMNS)
     writer.writeheader()
@@ -97,19 +105,26 @@ def write_marriages(families: list[Family], buf: io.TextIOBase) -> int:
                 "parent2": f"person_{family.partner2.id_number}" if family.partner2 else None,
                 "date": family.married_date,
                 "placeid": f"place_{family.married_place.id}" if family.married_place else None,
+                "source": source,
             }
         )
         written += 1
     return written
 
 
-def write_children(families: list[Family], buf: io.TextIOBase) -> int:
+def write_children(families: list[Family], source: str | None, buf: io.TextIOBase) -> int:
     written = 0
     writer = csv.DictWriter(buf, fieldnames=CHILDREN_COLUMNS)
     writer.writeheader()
     for family_id, family in enumerate(families):
         for child in family.children:
-            writer.writerow({"family": f"family_{family_id}", "child": f"person_{child.id_number}"})
+            writer.writerow(
+                {
+                    "family": f"family_{family_id}",
+                    "child": f"person_{child.id_number}",
+                    "source": source,
+                }
+            )
             written += 1
     return written
 
@@ -119,15 +134,16 @@ def export(
     people: dict[int, Person],
     families: list[Family],
     places_manager: PlacesManager,
+    source: str | None,
 ) -> dict[str, int]:
     written = {}
 
     written["places"] = write_places(places_manager, buf)
     buf.write("\n")
-    written["people"] = write_people(people, buf)
+    written["people"] = write_people(people, source, buf)
     buf.write("\n")
-    written["marriages"] = write_marriages(families, buf)
+    written["marriages"] = write_marriages(families, source, buf)
     buf.write("\n")
-    written["children"] = write_children(families, buf)
+    written["children"] = write_children(families, source, buf)
 
     return written
