@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
+from re import L
 
-from .__main__ import error_manager
+from .__main__ import error_manager, stdout
 from .dates import Date
 from .people import Gender, Marriage, Person
 from .places import PlacesManager
@@ -15,7 +16,7 @@ class Family:
     children: list[Person] = field(default_factory=list)
 
 
-def build_families(people: dict[int, Person]) -> list[Family]:
+def build_families(people: dict[int, Person]) -> tuple[list[Family], dict[int, Person]]:
     families: list[Family] = []
 
     for person in people.values():
@@ -42,6 +43,24 @@ def build_families(people: dict[int, Person]) -> list[Family]:
                     )
 
                 spouse = people[person.marriage.spouse]
+
+
+                def not_already_processed(family: Family, person: Person, spouse: Person) -> bool:
+                    if (family.partner1 and family.partner1.id_number == spouse.id_number) or (
+                        family.partner2 and family.partner2.id_number == spouse.id_number
+                    ):
+                        stdout.print("FAM:")
+                        stdout.print(family)
+                        stdout.print("PER:")
+                        stdout.print(person)
+                        stdout.print("SPO:")
+                        stdout.print(spouse)
+                        stdout.print()
+                        stdout.print()
+                        return False
+                    return True
+
+                families = list(filter(lambda f: not_already_processed(f, person, spouse), families))
 
                 # We check to make sure the details of the marriage match between both partners.
                 # Note that, if someone remarried or had children outside of wedlock, we'll probably
@@ -280,4 +299,4 @@ def build_families(people: dict[int, Person]) -> list[Family]:
 
             families.append(family)
 
-    return families
+    return families, people

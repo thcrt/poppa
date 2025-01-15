@@ -34,6 +34,9 @@ def parse(
     source: Annotated[
         str | None, typer.Option(help="The title of the source to which data will be attributed.")
     ] = None,
+    quiet: Annotated[
+        bool, typer.Option(help="Whether to skip printing a table summary.")
+    ] = False,
 ) -> None:
     """Parse an ODS spreadsheet into a Gramps-formatted CSV file."""
     from poppa.export import export
@@ -45,7 +48,7 @@ def parse(
     places_manager = PlacesManager(places_file)
 
     people = build_people(data, places_manager)
-    families = build_families(people)
+    families, people = build_families(people)
 
     people_table = Table(
         "ID",
@@ -71,7 +74,8 @@ def parse(
             person.death_date,
             person.death_place,
         )
-    stdout.print(people_table)
+    if not quiet:
+        stdout.print(people_table)
 
     families_table = Table(
         "Partner 1",
@@ -89,18 +93,21 @@ def parse(
             family.married_place,
             ", ".join(str(child.id_number) for child in family.children),
         )
-    stdout.print(families_table)
+    if not quiet:
+        stdout.print(families_table)
 
     with out.open("w+") as f:
         written = export(f, people, families, places_manager, source)
 
-    stdout.rule(style="bold white")
-    stdout.rule(style="bold white")
+    if not quiet:
+        stdout.rule(style="bold white")
+        stdout.rule(style="bold white")
 
     export_table = Table("Kind", "Quantity", title="Records exported")
     for record_type, number_exported in written.items():
         export_table.add_row(record_type.title(), str(number_exported))
-    stdout.print(export_table)
+    if not quiet:
+        stdout.print(export_table)
 
 
 if __name__ == "__main__":
