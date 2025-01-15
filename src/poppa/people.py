@@ -1,3 +1,4 @@
+from os import error
 import re
 from dataclasses import dataclass, field
 from enum import StrEnum, auto
@@ -216,7 +217,7 @@ class Person:
 
 
 def build_people(cell_data: list[list[Any]], places_manager: PlacesManager) -> dict[int, Person]:
-    people = {}
+    people: dict[int, Person] = {}
     new_id_start = 99900
 
     for entry in batched(cell_data, 2):
@@ -226,6 +227,13 @@ def build_people(cell_data: list[list[Any]], places_manager: PlacesManager) -> d
         if not person.id_number:
             person.id_number = new_id_start
             new_id_start += 1
+        if person.id_number in people:
+            error_manager.show_error(
+                "Duplicate IDs",
+                f"The ID number #{person.id_number} is in use by both `{person.first} "
+                f"{person.last}` and `{people[person.id_number].first} "
+                f"{people[person.id_number].last}`."
+            )
         people[person.id_number] = person
 
     return people
